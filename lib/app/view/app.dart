@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/counter/counter.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -13,7 +12,7 @@ class App extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
-      home: const CounterPage(),
+      home: Container(),
     );
   }
 }
