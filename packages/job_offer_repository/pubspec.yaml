@@ -1,4 +1,4 @@
-name: job_repository
+name: job_offer_repository
 description: Package which manages the job domain
 publish_to: none
 
