@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/counter/counter.dart';
-import 'package:fudeo_hackaton/l10n/l10n.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -14,8 +13,6 @@ class App extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       home: const CounterPage(),
     );
   }
