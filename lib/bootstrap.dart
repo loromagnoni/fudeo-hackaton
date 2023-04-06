@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fudeo_api/fudeo_api.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 typedef AppBuilder = FutureOr<Widget> Function(
@@ -32,7 +33,8 @@ Future<void> bootstrap({required AppBuilder builder}) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  final jobOfferRepository = JobOfferRepository();
+  final fudeoAPI = FudeoAPI();
+  final jobOfferRepository = JobOfferRepository(fudeoAPI: fudeoAPI);
 
   await runZonedGuarded(
     () async => runApp(await builder(jobOfferRepository)),

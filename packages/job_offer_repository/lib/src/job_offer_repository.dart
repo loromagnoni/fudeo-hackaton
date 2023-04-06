@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fudeo_api/fudeo_api.dart';
 import 'package:rxdart/subjects.dart';
 
 class JobOffer extends Equatable {
@@ -10,17 +11,36 @@ class JobOffer extends Equatable {
 }
 
 class JobOfferRepository {
+  JobOfferRepository({required FudeoAPI fudeoAPI}) : _fudeoAPI = fudeoAPI;
+  final FudeoAPI _fudeoAPI;
   final _jobOfferListController = BehaviorSubject<List<JobOffer>>();
+  bool _loaded = false;
 
   Stream<List<JobOffer>> get jobOfferList async* {
     yield* _jobOfferListController.stream;
   }
 
   Future<void> loadJobOffers() async {
-    _jobOfferListController.add([const JobOffer(title: 'First')]);
+    if (!_loaded) {
+      final response = await _fudeoAPI.getJobOffers();
+      _jobOfferListController.add(response.toJobOfferList());
+      _loaded = true;
+    }
   }
 
   void dispose() {
     _jobOfferListController.close();
+  }
+}
+
+extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
+  List<JobOffer> toJobOfferList() {
+    return results
+        .map(
+          (e) => JobOffer(
+            title: e.properties.name.title.first.text.content,
+          ),
+        )
+        .toList();
   }
 }
