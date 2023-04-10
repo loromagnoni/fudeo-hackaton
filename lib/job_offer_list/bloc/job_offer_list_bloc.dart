@@ -8,13 +8,20 @@ import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'job_offer_list_event.dart';
+
 part 'job_offer_list_state.dart';
 
+typedef OpenJobOfferCallback = void Function(JobOffer jobOffer);
+
 class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
-  JobOfferListBloc({required JobOfferRepository jobOfferRepository})
+  JobOfferListBloc(
+      {required JobOfferRepository jobOfferRepository,
+      required OpenJobOfferCallback openJobOfferDetailPage})
       : _jobOfferRepository = jobOfferRepository,
+        _openJobOfferDetailPageCallback = openJobOfferDetailPage,
         super(const JobOfferListInitial([])) {
     on<JobOfferListChange>(_handleJobOfferListChange);
+    on<JobOfferListTap>(_handleJobOfferListTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList
         .interval(const Duration(seconds: 2))
         .listen((list) {
@@ -25,6 +32,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
 
   final JobOfferRepository _jobOfferRepository;
   late StreamSubscription<List<JobOffer>> _jobOfferListSubscription;
+  final OpenJobOfferCallback _openJobOfferDetailPageCallback;
 
   void _handleJobOfferListChange(
     JobOfferListChange event,
@@ -37,5 +45,12 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   Future<void> close() {
     _jobOfferListSubscription.cancel();
     return super.close();
+  }
+
+  void _handleJobOfferListTap(
+    JobOfferListTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    _openJobOfferDetailPageCallback(event.jobOffer);
   }
 }
