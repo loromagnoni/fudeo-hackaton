@@ -28,6 +28,14 @@ class JobOfferRepository {
     }
   }
 
+  Future<void> loadFreelanceProjects() async {
+    if (!_loaded) {
+      final response = await _fudeoAPI.getFreelanceProjects();
+      _jobOfferListController.add(response.toFreelanceProjectList());
+      _loaded = true;
+    }
+  }
+
   void dispose() {
     _jobOfferListController.close();
   }
@@ -39,6 +47,18 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
         .map(
           (e) => JobOffer(
             title: e.properties.name.title.first.text.content,
+          ),
+        )
+        .toList();
+  }
+}
+
+extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
+  List<JobOffer> toFreelanceProjectList() {
+    return results
+        .map(
+          (e) => JobOffer(
+            title: e.properties.code.title.first.text.content,
           ),
         )
         .toList();
