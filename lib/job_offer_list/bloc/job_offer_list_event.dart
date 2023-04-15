@@ -16,3 +16,12 @@ class JobOfferListChange extends JobOfferListEvent {
   @override
   List<Object> get props => [jobOfferList];
 }
+
+class JobOfferListTap extends JobOfferListEvent {
+  const JobOfferListTap(this.jobOffer);
+
+  final JobOffer jobOffer;
+
+  @override
+  List<Object> get props => [jobOffer];
+}
