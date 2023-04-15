@@ -14,7 +14,7 @@ class JobOfferListPage extends StatelessWidget {
         create: (context) => JobOfferListBloc(
           jobOfferRepository: context.read<JobOfferRepository>(),
           openJobOfferDetailPage: (jobOffer) => Navigator.of(context).push(
-            MaterialPageRoute(
+            MaterialPageRoute<void>(
               builder: (context) => const JobOfferDetailPage(),
             ),
           ),

@@ -8,16 +8,15 @@ import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'job_offer_list_event.dart';
-
 part 'job_offer_list_state.dart';
 
 typedef OpenJobOfferCallback = void Function(JobOffer jobOffer);
 
 class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
-  JobOfferListBloc(
-      {required JobOfferRepository jobOfferRepository,
-      required OpenJobOfferCallback openJobOfferDetailPage})
-      : _jobOfferRepository = jobOfferRepository,
+  JobOfferListBloc({
+    required JobOfferRepository jobOfferRepository,
+    required OpenJobOfferCallback openJobOfferDetailPage,
+  })  : _jobOfferRepository = jobOfferRepository,
         _openJobOfferDetailPageCallback = openJobOfferDetailPage,
         super(const JobOfferListInitial([])) {
     on<JobOfferListChange>(_handleJobOfferListChange);
