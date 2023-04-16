@@ -3,11 +3,12 @@ import 'package:fudeo_api/fudeo_api.dart';
 import 'package:rxdart/subjects.dart';
 
 class JobOffer extends Equatable {
-  const JobOffer({required this.title});
+  const JobOffer({required this.id, required this.title});
   final String title;
+  final String id;
 
   @override
-  List<Object> get props => [title];
+  List<Object> get props => [title, id];
 }
 
 class JobOfferRepository {
@@ -46,6 +47,7 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
     return results
         .map(
           (e) => JobOffer(
+            id: e.id,
             title: e.properties.name.title.first.text.content,
           ),
         )
