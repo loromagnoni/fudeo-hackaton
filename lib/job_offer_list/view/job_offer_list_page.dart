@@ -9,19 +9,33 @@ class JobOfferListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocProvider(
-        create: (context) => JobOfferListBloc(
-          jobOfferRepository: context.read<JobOfferRepository>(),
-          openJobOfferDetailPage: (jobOffer) => Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (context) => const JobOfferDetailPage(),
-            ),
+    return BlocProvider(
+      create: (context) => JobOfferListBloc(
+        jobOfferRepository: context.read<JobOfferRepository>(),
+        openJobOfferDetailPage: (jobOffer) => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => const JobOfferDetailPage(),
           ),
         ),
-        child: const JobListView(),
+      ),
+      child: Scaffold(
+        body: const JobListView(),
+        floatingActionButton: BlocBuilder<JobOfferListBloc, JobOfferListState>(
+          builder: (context, state) =>
+              state is JobOfferListFilled && state.hasMore
+                  ? FloatingActionButton(
+                      onPressed: () => _onLoadMore(context, state.nextCursor!),
+                      child: const Icon(Icons.arrow_forward),
+                    )
+                  : Container(),
+        ),
       ),
     );
+  }
+
+  void _onLoadMore(BuildContext context, String nextCursor) {
+    BlocProvider.of<JobOfferListBloc>(context)
+        .add(JobOfferListLoadMore(nextCursor));
   }
 }
 

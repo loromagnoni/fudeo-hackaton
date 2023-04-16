@@ -21,23 +21,36 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         super(const JobOfferListInitial([])) {
     on<JobOfferListChange>(_handleJobOfferListChange);
     on<JobOfferListTap>(_handleJobOfferListTap);
+    on<JobOfferListLoadMore>(_handleJobOfferListLoadMore);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList
         .interval(const Duration(seconds: 2))
-        .listen((list) {
-      add(JobOfferListChange(list));
+        .listen((response) {
+      add(
+        JobOfferListChange(
+          response.jobOffers,
+          hasMore: response.hasMore,
+          nextCursor: response.nextCursor,
+        ),
+      );
     });
     _jobOfferRepository.loadJobOffers();
   }
 
   final JobOfferRepository _jobOfferRepository;
-  late StreamSubscription<List<JobOffer>> _jobOfferListSubscription;
+  late StreamSubscription<JobOfferListResponse> _jobOfferListSubscription;
   final OpenJobOfferCallback _openJobOfferDetailPageCallback;
 
   void _handleJobOfferListChange(
     JobOfferListChange event,
     Emitter<JobOfferListState> emit,
   ) {
-    emit(JobOfferListFilled(event.jobOfferList));
+    emit(
+      JobOfferListFilled(
+        event.jobOfferList,
+        event.nextCursor,
+        event.hasMore,
+      ),
+    );
   }
 
   @override
@@ -51,5 +64,14 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     Emitter<JobOfferListState> emit,
   ) {
     _openJobOfferDetailPageCallback(event.jobOffer);
+  }
+
+  void _handleJobOfferListLoadMore(
+    JobOfferListLoadMore event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    if (state.hasMore) {
+      _jobOfferRepository.loadJobOffers(cursor: event.nextCursor);
+    }
   }
 }

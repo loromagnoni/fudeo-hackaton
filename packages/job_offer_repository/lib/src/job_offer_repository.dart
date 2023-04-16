@@ -1,9 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:fudeo_api/fudeo_api.dart';
+import 'package:job_offer_repository/src/job_offer_list_response.dart';
 import 'package:rxdart/subjects.dart';
 
 class JobOffer extends Equatable {
   const JobOffer({required this.title});
+
   final String title;
 
   @override
@@ -13,17 +15,19 @@ class JobOffer extends Equatable {
 class JobOfferRepository {
   JobOfferRepository({required FudeoAPI fudeoAPI}) : _fudeoAPI = fudeoAPI;
   final FudeoAPI _fudeoAPI;
-  final _jobOfferListController = BehaviorSubject<List<JobOffer>>();
+  final _jobOfferListController = BehaviorSubject<JobOfferListResponse>();
   bool _loaded = false;
 
-  Stream<List<JobOffer>> get jobOfferList async* {
+  Stream<JobOfferListResponse> get jobOfferList async* {
     yield* _jobOfferListController.stream;
   }
 
-  Future<void> loadJobOffers() async {
+  Future<void> loadJobOffers({
+    String? cursor,
+  }) async {
     if (!_loaded) {
-      final response = await _fudeoAPI.getJobOffers();
-      _jobOfferListController.add(response.toJobOfferList());
+      final response = await _fudeoAPI.getJobOffers(cursor: cursor);
+      _jobOfferListController.add(response.toJobOfferListResponse());
       _loaded = true;
     }
   }
@@ -31,7 +35,7 @@ class JobOfferRepository {
   Future<void> loadFreelanceProjects() async {
     if (!_loaded) {
       final response = await _fudeoAPI.getFreelanceProjects();
-      _jobOfferListController.add(response.toFreelanceProjectList());
+      _jobOfferListController.add(response.toFreelanceProjectListResponse());
       _loaded = true;
     }
   }
@@ -42,25 +46,33 @@ class JobOfferRepository {
 }
 
 extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
-  List<JobOffer> toJobOfferList() {
-    return results
-        .map(
-          (e) => JobOffer(
-            title: e.properties.name.title.first.text.content,
-          ),
-        )
-        .toList();
+  JobOfferListResponse toJobOfferListResponse() {
+    return JobOfferListResponse(
+      jobOffers: results
+          .map(
+            (e) => JobOffer(
+              title: e.properties.name.title.first.text.content,
+            ),
+          )
+          .toList(),
+      hasMore: hasMore,
+      nextCursor: nextCursor,
+    );
   }
 }
 
 extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
-  List<JobOffer> toFreelanceProjectList() {
-    return results
-        .map(
-          (e) => JobOffer(
-            title: e.properties.code.title.first.text.content,
-          ),
-        )
-        .toList();
+  JobOfferListResponse toFreelanceProjectListResponse() {
+    return JobOfferListResponse(
+      jobOffers: results
+          .map(
+            (e) => JobOffer(
+              title: e.properties.code.title.first.text.content,
+            ),
+          )
+          .toList(),
+      hasMore: hasMore,
+      nextCursor: nextCursor,
+    );
   }
 }
