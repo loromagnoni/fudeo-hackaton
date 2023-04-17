@@ -3,8 +3,13 @@ import 'package:fudeo_hackaton/bootstrap.dart';
 
 void main() {
   bootstrap(
-    builder: (jobOfferRepository) => App(
+    builder: (
+      jobOfferRepository,
+      socialShareRepository,
+    ) =>
+        App(
       jobOfferRepository: jobOfferRepository,
+      socialShareRepository: socialShareRepository,
     ),
   );
 }
