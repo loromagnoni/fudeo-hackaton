@@ -2,6 +2,7 @@ import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/home/home.dart';
+import 'package:fudeo_hackaton/onboarding/view/onboarding_page.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:social_share_repository/social_share_repository.dart';
 
@@ -27,9 +28,9 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _socialShareRepository),
         RepositoryProvider.value(value: _favouritesRepository)
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: Scaffold(
-          body: HomePage(),
+          body: OnboardingPage(),
         ),
       ),
     );
