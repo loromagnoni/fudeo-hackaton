@@ -10,15 +10,14 @@ class App extends StatelessWidget {
     super.key,
     required JobOfferRepository jobOfferRepository,
     required SocialShareRepository socialShareRepository,
-  })  : _jobOfferRepository = jobOfferRepository,
-        _socialShareRepository = socialShareRepository;
-
-  final JobOfferRepository _jobOfferRepository;
-  final SocialShareRepository _socialShareRepository;
     required FavouritesRepository favouritesRepository,
   })  : _jobOfferRepository = jobOfferRepository,
+        _socialShareRepository = socialShareRepository,
         _favouritesRepository = favouritesRepository;
+
   final FavouritesRepository _favouritesRepository;
+  final JobOfferRepository _jobOfferRepository;
+  final SocialShareRepository _socialShareRepository;
 
   @override
   Widget build(BuildContext context) {

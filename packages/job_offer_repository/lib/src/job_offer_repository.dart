@@ -4,6 +4,7 @@ import 'package:rxdart/subjects.dart';
 
 class JobOffer extends Equatable {
   const JobOffer({required this.id, required this.title});
+
   final String title;
   final String id;
 
@@ -60,6 +61,7 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
     return results
         .map(
           (e) => JobOffer(
+            id: e.id,
             title: e.properties.code.title.first.text.content,
           ),
         )

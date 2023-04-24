@@ -5,8 +5,8 @@ void main() {
   bootstrap(
     builder: (
       jobOfferRepository,
-      favouriteRepository,
       socialShareRepository,
+      favouriteRepository,
     ) =>
         App(
       jobOfferRepository: jobOfferRepository,
