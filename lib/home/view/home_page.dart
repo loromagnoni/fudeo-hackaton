@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:job_offer_repository/job_offer_repository.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+        create: (context) => HomeBloc(
+              jobOfferRepository: context.read<JobOfferRepository>(),
+            ),
+        child: const HomeView());
+  }
+}
+
+class HomeView extends StatelessWidget {
+  const HomeView({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,6 +104,22 @@ class HomePage extends StatelessWidget {
                           },
                           child: Text('Vedi tutti'))
                     ],
+                  ),
+                  const SizedBox(height: 16),
+                  BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      if (state is! HomeSuccess) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Column(
+                        children: [
+                          for (var jobOffer in state.opportunities)
+                            Text(jobOffer.title),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
