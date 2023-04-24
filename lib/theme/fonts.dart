@@ -60,6 +60,7 @@ class AppFonts {
     fontSize: 11,
     fontWeight: FontWeight.w700,
     color: AppColors.extraDarkGrey,
+  );
   static const TextStyle jobListAppBar = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,

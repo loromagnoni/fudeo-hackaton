@@ -8,6 +8,12 @@ abstract class JobOfferListState extends Equatable {
   final List<JobOffer> jobOfferList;
   final OpportunityType selectedType;
 
+  List<Opportunity> get filteredOpportunities {
+    return selectedType == OpportunityType.jobOffer
+        ? jobOfferList.map(Opportunity.fromJobOffer).toList()
+        : [];
+  }
+
   @override
   List<Object> get props => [jobOfferList, selectedType];
 }

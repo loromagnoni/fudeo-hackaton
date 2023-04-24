@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -21,6 +22,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         super(const JobOfferListInitial([], OpportunityType.jobOffer)) {
     on<JobOfferListChange>(_handleJobOfferListChange);
     on<JobOfferListTap>(_handleJobOfferListTap);
+    on<OpportunityToggleTap>(_handleOpportunityToggleTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
@@ -44,10 +46,11 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   ) {
     emit(
       JobOfferListFilled(
-          state.jobOfferList,
-          state.selectedType == OpportunityType.jobOffer
-              ? OpportunityType.freelanceProject
-              : OpportunityType.jobOffer),
+        state.jobOfferList,
+        state.selectedType == OpportunityType.jobOffer
+            ? OpportunityType.freelanceProject
+            : OpportunityType.jobOffer,
+      ),
     );
   }
 

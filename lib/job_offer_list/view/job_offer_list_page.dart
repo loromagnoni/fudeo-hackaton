@@ -6,6 +6,7 @@ import 'package:fudeo_hackaton/job_offer_list/widget/opportunity_type_toggle.dar
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 class JobOfferListPage extends StatelessWidget {
@@ -72,16 +73,8 @@ class JobListView extends StatelessWidget {
     return BlocBuilder<JobOfferListBloc, JobOfferListState>(
       builder: (context, state) => ListView(
         children: List.of(
-          state.jobOfferList.map(
-            (e) => GestureDetector(
-              child: Row(
-                children: [
-                  Text(e.title),
-                  FavouriteCheckbox(id: e.id),
-                ],
-              ),
-              onTap: () => _onJobOfferTap(context, e),
-            ),
+          state.filteredOpportunities.map(
+            (o) => OpportunityCard(opportunity: o),
           ),
         ),
       ),

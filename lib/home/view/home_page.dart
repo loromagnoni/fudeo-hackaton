@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/home/widget/opportunity_card.dart';
+import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
