@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 
+import '../../../../theme/colors.dart';
+
 class FavouriteCheckbox extends StatelessWidget {
   const FavouriteCheckbox({super.key, required String id}) : _id = id;
 
@@ -27,11 +29,15 @@ class ItemCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FavouriteCheckboxBloc, FavouriteCheckboxState>(
       bloc: context.read<FavouriteCheckboxBloc>(),
-      builder: (context, state) => Checkbox(
-        value: state.checked,
-        onChanged: (value) => context
-            .read<FavouriteCheckboxBloc>()
-            .add(const FavouriteCheckboxToggled()),
+      builder: (context, state) => IconButton(
+        onPressed: () => context.read<FavouriteCheckboxBloc>().add(
+              const FavouriteCheckboxToggled(),
+            ),
+        icon: Icon(
+          state.checked ? Icons.bookmark : Icons.bookmark_border,
+          size: 32,
+          color: AppColors.sky,
+        ),
       ),
     );
   }

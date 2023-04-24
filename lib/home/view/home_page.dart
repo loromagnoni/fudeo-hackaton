@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/view/favourite_checkbox.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/theme/shadows.dart';
@@ -167,13 +168,8 @@ class HomeView extends StatelessWidget {
                                               )
                                             ],
                                           )),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.bookmark_outline,
-                                              size: 32,
-                                              color: AppColors.sky,
-                                            ),
+                                          FavouriteCheckbox(
+                                            id: jobOffer.id,
                                           ),
                                         ],
                                       ),
