@@ -28,11 +28,7 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _socialShareRepository),
         RepositoryProvider.value(value: _favouritesRepository)
       ],
-      child: const MaterialApp(
-        home: Scaffold(
-          body: OnboardingPage(),
-        ),
-      ),
+      child: const MaterialApp(home: OnboardingPage()),
     );
   }
 }
