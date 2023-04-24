@@ -9,6 +9,8 @@ environment:
 dependencies:
   bloc: ^8.1.1
   equatable: ^2.0.3
+  favourites_repository:
+    path: packages/favourites_repository
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 class JobOfferListPage extends StatelessWidget {
@@ -35,7 +36,12 @@ class JobListView extends StatelessWidget {
         children: List.of(
           state.jobOfferList.map(
             (e) => GestureDetector(
-              child: Text(e.title),
+              child: Row(
+                children: [
+                  Text(e.title),
+                  FavouriteCheckbox(id: e.id),
+                ],
+              ),
               onTap: () => _onJobOfferTap(context, e),
             ),
           ),

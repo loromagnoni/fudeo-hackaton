@@ -1,3 +1,4 @@
+import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/view/job_offer_list_page.dart';
@@ -14,6 +15,10 @@ class App extends StatelessWidget {
 
   final JobOfferRepository _jobOfferRepository;
   final SocialShareRepository _socialShareRepository;
+    required FavouritesRepository favouritesRepository,
+  })  : _jobOfferRepository = jobOfferRepository,
+        _favouritesRepository = favouritesRepository;
+  final FavouritesRepository _favouritesRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider.value(value: _jobOfferRepository),
         RepositoryProvider.value(value: _socialShareRepository),
+        RepositoryProvider.value(value: _favouritesRepository)
       ],
       child: const MaterialApp(
         home: JobOfferListPage(),

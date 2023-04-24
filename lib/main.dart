@@ -5,11 +5,13 @@ void main() {
   bootstrap(
     builder: (
       jobOfferRepository,
+      favouriteRepository,
       socialShareRepository,
     ) =>
         App(
       jobOfferRepository: jobOfferRepository,
       socialShareRepository: socialShareRepository,
+      favouritesRepository: favouriteRepository,
     ),
   );
 }
