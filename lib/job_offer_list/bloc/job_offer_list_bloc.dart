@@ -18,7 +18,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     required OpenJobOfferCallback openJobOfferDetailPage,
   })  : _jobOfferRepository = jobOfferRepository,
         _openJobOfferDetailPageCallback = openJobOfferDetailPage,
-        super(const JobOfferListInitial([])) {
+        super(const JobOfferListInitial([], OpportunityType.jobOffer)) {
     on<JobOfferListChange>(_handleJobOfferListChange);
     on<JobOfferListTap>(_handleJobOfferListTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
@@ -35,7 +35,20 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     JobOfferListChange event,
     Emitter<JobOfferListState> emit,
   ) {
-    emit(JobOfferListFilled(event.jobOfferList));
+    emit(JobOfferListFilled(event.jobOfferList, state.selectedType));
+  }
+
+  void _handleOpportunityToggleTap(
+    OpportunityToggleTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      JobOfferListFilled(
+          state.jobOfferList,
+          state.selectedType == OpportunityType.jobOffer
+              ? OpportunityType.freelanceProject
+              : OpportunityType.jobOffer),
+    );
   }
 
   @override

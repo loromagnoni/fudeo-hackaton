@@ -10,4 +10,6 @@ class AppColors {
   static const Color lightGrey = Color(0xFFEFEFEF);
 
   static const Color homeOpportunityCardBackground = Color(0xFFFFFFFF);
+  static const Color grey = Color(0xFFCECECE);
+  static const Color greyDark = Color(0xFF757575);
 }

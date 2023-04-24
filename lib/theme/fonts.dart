@@ -60,5 +60,22 @@ class AppFonts {
     fontSize: 11,
     fontWeight: FontWeight.w700,
     color: AppColors.extraDarkGrey,
+  static const TextStyle jobListAppBar = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
+  static const TextStyle jobListToggle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColors.greyDark,
+    fontFamily: 'RedHat',
+  );
+  static const TextStyle jobListToggleActive = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
   );
 }

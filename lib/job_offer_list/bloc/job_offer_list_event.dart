@@ -25,3 +25,5 @@ class JobOfferListTap extends JobOfferListEvent {
   @override
   List<Object> get props => [jobOffer];
 }
+
+class OpportunityToggleTap extends JobOfferListEvent {}

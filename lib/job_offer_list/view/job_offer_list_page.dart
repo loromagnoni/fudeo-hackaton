@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/opportunity_type_toggle.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
+import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 class JobOfferListPage extends StatelessWidget {
@@ -11,6 +14,21 @@ class JobOfferListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: AppColors.black,
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          'Annunci',
+          style: AppFonts.jobListAppBar,
+        ),
+        backgroundColor: AppColors.white,
+      ),
       body: BlocProvider(
         create: (context) => JobOfferListBloc(
           jobOfferRepository: context.read<JobOfferRepository>(),
@@ -20,7 +38,27 @@ class JobOfferListPage extends StatelessWidget {
             ),
           ),
         ),
-        child: const JobListView(),
+        child: const JobOfferListView(),
+      ),
+    );
+  }
+}
+
+class JobOfferListView extends StatelessWidget {
+  const JobOfferListView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32),
+      child: Column(
+        children: [
+          OpportunityTypeToggle(),
+          Text('filters'),
+          Expanded(
+            child: JobListView(),
+          )
+        ],
       ),
     );
   }
