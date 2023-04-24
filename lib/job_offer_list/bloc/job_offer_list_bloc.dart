@@ -21,9 +21,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         super(const JobOfferListInitial([])) {
     on<JobOfferListChange>(_handleJobOfferListChange);
     on<JobOfferListTap>(_handleJobOfferListTap);
-    _jobOfferListSubscription = _jobOfferRepository.jobOfferList
-        .interval(const Duration(seconds: 2))
-        .listen((list) {
+    _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
     _jobOfferRepository.loadJobOffers();

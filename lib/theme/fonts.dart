@@ -46,4 +46,19 @@ class AppFonts {
     fontFamily: 'RedHat',
     height: 1.4,
   );
+  static const TextStyle homeOpportunityCardTitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+  );
+  static const TextStyle homeOpportunityCardSubtitle = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    color: AppColors.extraDarkGrey,
+  );
+  static const TextStyle homeOpportunityCardTag = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w700,
+    color: AppColors.extraDarkGrey,
+  );
 }
