@@ -7,7 +7,8 @@ class NotionJobOfferPage extends Deserializable {
           json['Job Posted'] as Map<String, dynamic>,
         ),
         team = NotionPageSelectField.fromJson(
-            json['Team'] as Map<String, dynamic>),
+          json['Team'] as Map<String, dynamic>,
+        ),
         contract = NotionPageSelectField.fromJson(
           json['Contratto'] as Map<String, dynamic>,
         ),

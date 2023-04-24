@@ -19,6 +19,8 @@ dependencies:
   job_offer_repository:
     path: packages/job_offer_repository
   rxdart: ^0.27.4
+  social_share_repository:
+    path: packages/social_share_repository
 
 dev_dependencies:
   bloc_test: ^9.1.1

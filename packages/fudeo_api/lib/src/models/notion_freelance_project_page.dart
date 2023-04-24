@@ -22,7 +22,8 @@ class NotionFreelanceProjectPage extends Deserializable {
           json['NDA'] as Map<String, dynamic>,
         ),
         code = NotionPageTitleField.fromJson(
-            json['Codice'] as Map<String, dynamic>),
+          json['Codice'] as Map<String, dynamic>,
+        ),
         paymentTiming = NotionPageRichTextField.fromJson(
           json['Tempistiche di pagamento'] as Map<String, dynamic>,
         ),

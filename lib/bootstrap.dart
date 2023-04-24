@@ -6,9 +6,11 @@ import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fudeo_api/fudeo_api.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
+import 'package:social_share_repository/social_share_repository.dart';
 
 typedef AppBuilder = FutureOr<Widget> Function(
   JobOfferRepository jobOfferRepository,
+  SocialShareRepository socialShareRepository,
   FavouritesRepository favouritesRepository,
 );
 
@@ -36,13 +38,18 @@ Future<void> bootstrap({required AppBuilder builder}) async {
   Bloc.observer = const AppBlocObserver();
 
   final fudeoAPI = FudeoAPI();
+  final jobOfferRepository = JobOfferRepository(fudeoAPI: fudeoAPI);
+  final socialShareRepository = SocialShareRepository();
   final favouritesRepository = FavouritesRepository();
-  final jobOfferRepository = JobOfferRepository(
-    fudeoAPI: fudeoAPI,
-  );
 
   await runZonedGuarded(
-    () async => runApp(await builder(jobOfferRepository, favouritesRepository)),
+    () async => runApp(
+      await builder(
+        jobOfferRepository,
+        socialShareRepository,
+        favouritesRepository
+      ),
+    ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
