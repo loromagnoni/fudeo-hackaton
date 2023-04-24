@@ -36,3 +36,8 @@ flutter:
   assets:
     - assets/onboarding.svg
     - assets/hero.svg
+  fonts:
+    - family: RedHat
+      fonts:
+        - asset: fonts/Red_Hat_Text/RedHatText-Bold.ttf
+          weight: 700
