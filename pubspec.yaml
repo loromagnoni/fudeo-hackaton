@@ -41,3 +41,7 @@ flutter:
       fonts:
         - asset: fonts/Red_Hat_Text/RedHatText-Bold.ttf
           weight: 700
+        - asset: fonts/Red_Hat_Text/RedHatText-Regular.ttf
+          weight: 400
+        - asset: fonts/Red_Hat_Text/RedHatText-SemiBold.ttf
+          weight: 600

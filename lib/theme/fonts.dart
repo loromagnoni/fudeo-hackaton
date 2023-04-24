@@ -12,14 +12,14 @@ class AppFonts {
     fontWeight: FontWeight.bold,
     color: AppColors.black,
     fontFamily: 'RedHat',
-    height: 1.2,
+    height: 1.1,
   );
   static const TextStyle onboardingSubTitle = TextStyle(
-    fontSize: 48,
-    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
     color: AppColors.black,
     fontFamily: 'RedHat',
-    height: 1.2,
+    height: 1.4,
   );
   static const TextStyle label = TextStyle(
     fontSize: 11,
@@ -31,5 +31,19 @@ class AppFonts {
     fontSize: 16,
     fontWeight: FontWeight.w700,
     color: AppColors.black,
+  );
+  static const TextStyle onboardingLink = TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w700,
+      color: AppColors.black,
+      fontFamily: 'RedHat',
+      height: 1.4,
+      decoration: TextDecoration.underline);
+  static const TextStyle onboardingButton = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+    fontFamily: 'RedHat',
+    height: 1.4,
   );
 }
