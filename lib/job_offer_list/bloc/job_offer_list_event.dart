@@ -36,3 +36,12 @@ class JobOfferListTap extends JobOfferListEvent {
 }
 
 class OpportunityToggleTap extends JobOfferListEvent {}
+
+class SearchTextChanged extends JobOfferListEvent {
+  const SearchTextChanged(this.searchText);
+
+  final String searchText;
+
+  @override
+  List<Object> get props => [searchText];
+}

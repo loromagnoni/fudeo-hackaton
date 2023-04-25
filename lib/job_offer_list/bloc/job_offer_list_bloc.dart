@@ -18,11 +18,19 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     required OpenJobOfferCallback openJobOfferDetailPage,
   })  : _jobOfferRepository = jobOfferRepository,
         _openJobOfferDetailPageCallback = openJobOfferDetailPage,
-        super(const JobOfferListInitial([], [], OpportunityType.jobOffer)) {
+        super(
+          const JobOfferListInitial(
+            [],
+            [],
+            OpportunityType.jobOffer,
+            null,
+          ),
+        ) {
     on<JobOfferListChange>(_handleJobOfferListChange);
     on<FreelanceListChange>(_handleFreelanceListChange);
     on<JobOfferListTap>(_handleJobOfferListTap);
     on<OpportunityToggleTap>(_handleOpportunityToggleTap);
+    on<SearchTextChanged>(_handleSearchTextChanged);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
@@ -47,6 +55,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.jobOfferList,
         event.freelanceList,
         state.selectedType,
+        state.searchText,
       ),
     );
   }
@@ -59,6 +68,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
       event.jobOfferList,
       state.freelanceList,
       state.selectedType,
+      state.searchText,
     ));
   }
 
@@ -73,6 +83,21 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.selectedType == OpportunityType.jobOffer
             ? OpportunityType.freelanceProject
             : OpportunityType.jobOffer,
+        state.searchText,
+      ),
+    );
+  }
+
+  void _handleSearchTextChanged(
+    SearchTextChanged event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      JobOfferListFilled(
+        state.jobOfferList,
+        state.freelanceList,
+        state.selectedType,
+        event.searchText,
       ),
     );
   }
