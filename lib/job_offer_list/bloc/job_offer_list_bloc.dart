@@ -23,7 +23,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
             [],
             [],
             OpportunityType.jobOffer,
-            null,
+            OpportunityFilter(),
           ),
         ) {
     on<JobOfferListChange>(_handleJobOfferListChange);
@@ -31,6 +31,10 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     on<JobOfferListTap>(_handleJobOfferListTap);
     on<OpportunityToggleTap>(_handleOpportunityToggleTap);
     on<SearchTextChanged>(_handleSearchTextChanged);
+    on<OpportunityFilterTap>(_handleOpportunityFilterTap);
+    on<FilterTap>(_handleFilterTap);
+    on<CancelFilterTap>(_handleCancelFilterTap);
+    on<ApplyFilterTap>(_handleApplyFilterTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
@@ -55,7 +59,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.jobOfferList,
         event.freelanceList,
         state.selectedType,
-        state.searchText,
+        state.filter,
       ),
     );
   }
@@ -68,7 +72,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
       event.jobOfferList,
       state.freelanceList,
       state.selectedType,
-      state.searchText,
+      state.filter,
     ));
   }
 
@@ -83,7 +87,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.selectedType == OpportunityType.jobOffer
             ? OpportunityType.freelanceProject
             : OpportunityType.jobOffer,
-        state.searchText,
+        state.filter,
       ),
     );
   }
@@ -97,7 +101,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.jobOfferList,
         state.freelanceList,
         state.selectedType,
-        event.searchText,
+        state.filter.copyWith(title: event.searchText),
       ),
     );
   }
@@ -113,5 +117,82 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     Emitter<JobOfferListState> emit,
   ) {
     _openJobOfferDetailPageCallback(event.jobOffer);
+  }
+
+  void _handleOpportunityFilterTap(
+    OpportunityFilterTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      state is JobOfferListFilled
+          ? OpportunityFilterEditing(
+              state.jobOfferList,
+              state.freelanceList,
+              state.selectedType,
+              state.filter,
+              filterToApply: state.filter,
+            )
+          : state is OpportunityFilterEditing
+              ? JobOfferListFilled(
+                  state.jobOfferList,
+                  state.freelanceList,
+                  state.selectedType,
+                  state.filter,
+                )
+              : state,
+    );
+  }
+
+  void _handleCancelFilterTap(
+    CancelFilterTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      state is OpportunityFilterEditing
+          ? JobOfferListFilled(
+              state.jobOfferList,
+              state.freelanceList,
+              state.selectedType,
+              state.filter,
+            )
+          : state,
+    );
+  }
+
+  void _handleApplyFilterTap(
+    ApplyFilterTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      state is OpportunityFilterEditing
+          ? JobOfferListFilled(
+              state.jobOfferList,
+              state.freelanceList,
+              state.selectedType,
+              (state as OpportunityFilterEditing).filterToApply,
+            )
+          : state,
+    );
+  }
+
+  void _handleFilterTap(
+    FilterTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      state is OpportunityFilterEditing
+          ? OpportunityFilterEditing(
+              state.jobOfferList,
+              state.freelanceList,
+              state.selectedType,
+              state.filter,
+              filterToApply: (state as OpportunityFilterEditing)
+                  .filterToApply
+                  .toggleFilter(
+                    event.filter,
+                  ),
+            )
+          : state,
+    );
   }
 }

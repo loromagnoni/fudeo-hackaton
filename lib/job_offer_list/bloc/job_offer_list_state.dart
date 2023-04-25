@@ -2,33 +2,86 @@ part of 'job_offer_list_bloc.dart';
 
 enum OpportunityType { jobOffer, freelanceProject }
 
+enum Filter { fullRemote, hybrid, onSite }
+
+class OpportunityFilter extends Equatable {
+  const OpportunityFilter({this.title, this.filters = const []});
+  final String? title;
+  final List<Filter> filters;
+
+  OpportunityFilter copyWith({String? title, List<Filter>? filters}) {
+    return OpportunityFilter(
+      title: title ?? this.title,
+      filters: filters ?? this.filters,
+    );
+  }
+
+  OpportunityFilter toggleFilter(Filter filter) {
+    return OpportunityFilter(
+      title: title,
+      filters: filters.contains(filter)
+          ? filters.where((f) => f != filter).toList()
+          : [...filters, filter],
+    );
+  }
+
+  bool containsLocationFilter() {
+    return filters.contains(Filter.fullRemote) ||
+        filters.contains(Filter.hybrid) ||
+        filters.contains(Filter.onSite);
+  }
+
+  @override
+  List<Object?> get props => [title, filters];
+}
+
 @immutable
 abstract class JobOfferListState extends Equatable {
   const JobOfferListState(
     this.jobOfferList,
     this.freelanceList,
     this.selectedType,
-    this.searchText,
+    this.filter,
   );
   final List<JobOffer> jobOfferList;
   final List<Freelance> freelanceList;
   final OpportunityType selectedType;
-  final String? searchText;
+  final OpportunityFilter filter;
 
   List<Opportunity> get filteredOpportunities {
     final opportunities = selectedType == OpportunityType.jobOffer
-        ? jobOfferList.map(Opportunity.fromJobOffer).toList()
+        ? jobOfferList
+            .where((j) {
+              if (filter.containsLocationFilter()) {
+                final matchFullRemote =
+                    filter.filters.contains(Filter.fullRemote) &&
+                        j.teamLocation == TeamLocation.fullRemote;
+                final matchHybrid = filter.filters.contains(Filter.hybrid) &&
+                    j.teamLocation == TeamLocation.hybrid;
+                final matchOnSite = filter.filters.contains(Filter.onSite) &&
+                    j.teamLocation == TeamLocation.onSite;
+                return matchFullRemote || matchHybrid || matchOnSite;
+              }
+              return true;
+            })
+            .toList()
+            .map(Opportunity.fromJobOffer)
+            .toList()
         : freelanceList.map(Opportunity.fromFreelance).toList();
-    if (searchText == null || searchText!.isEmpty) return opportunities;
-    return opportunities
-        .where((opportunity) =>
-            opportunity.title.toLowerCase().contains(searchText!.toLowerCase()))
-        .toList();
+    if (filter.title == null || filter.title!.isEmpty) return opportunities;
+    return opportunities.where((opportunity) {
+      if (filter.title != null &&
+          filter.title!.isNotEmpty &&
+          !opportunity.title
+              .toLowerCase()
+              .contains(filter.title!.toLowerCase())) return false;
+      return true;
+    }).toList();
   }
 
   @override
   List<Object?> get props =>
-      [jobOfferList, freelanceList, selectedType, searchText];
+      [jobOfferList, freelanceList, selectedType, filter];
 }
 
 class JobOfferListInitial extends JobOfferListState {
@@ -41,6 +94,26 @@ class JobOfferListInitial extends JobOfferListState {
 }
 
 class JobOfferListFilled extends JobOfferListState {
-  const JobOfferListFilled(super.jobOfferList, super.freelanceList,
-      super.selectedType, super.searchText);
+  const JobOfferListFilled(
+    super.jobOfferList,
+    super.freelanceList,
+    super.selectedType,
+    super.searchText,
+  );
+}
+
+class OpportunityFilterEditing extends JobOfferListState {
+  const OpportunityFilterEditing(
+    super.jobOfferList,
+    super.freelanceList,
+    super.selectedType,
+    super.searchText, {
+    required this.filterToApply,
+  });
+
+  final OpportunityFilter filterToApply;
+
+  @override
+  List<Object> get props =>
+      [jobOfferList, freelanceList, selectedType, filter, filterToApply];
 }

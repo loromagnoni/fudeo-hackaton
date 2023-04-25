@@ -2,22 +2,42 @@ import 'package:equatable/equatable.dart';
 import 'package:fudeo_api/fudeo_api.dart';
 import 'package:rxdart/subjects.dart';
 
+enum TeamLocation { fullRemote, hybrid, onSite }
+
+TeamLocation? teamLocationFromString(String? teamLocation) {
+  if (teamLocation == null) return null;
+  switch (teamLocation) {
+    case 'Full Remote':
+      return TeamLocation.fullRemote;
+    case 'Ibrido':
+      return TeamLocation.hybrid;
+    case 'In sede':
+      return TeamLocation.onSite;
+    default:
+      throw Exception('Invalid team location');
+  }
+}
+
 class JobOffer extends Equatable {
-  const JobOffer(
-      {required this.id,
-      required this.title,
-      required this.company,
-      required this.location,
-      required this.contract});
+  const JobOffer({
+    required this.id,
+    required this.title,
+    required this.company,
+    required this.location,
+    required this.contract,
+    required this.teamLocation,
+  });
 
   final String title;
   final String id;
   final String company;
   final String location;
   final String contract;
+  final TeamLocation? teamLocation;
 
   @override
-  List<Object> get props => [title, id, company, location, contract];
+  List<Object?> get props =>
+      [title, id, company, location, contract, teamLocation];
 }
 
 class Freelance extends Equatable {
@@ -36,7 +56,7 @@ class Freelance extends Equatable {
   final String compensation;
 
   @override
-  List<Object> get props => [title, id, nda, workWith, compensation];
+  List<Object?> get props => [title, id, nda, workWith, compensation];
 }
 
 class JobOfferRepository {
@@ -88,6 +108,8 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
                 ? ''
                 : e.properties.location.richText.first.text.content,
             contract: e.properties.contract.select?.name ?? '',
+            teamLocation:
+                teamLocationFromString(e.properties.team.select?.name),
           ),
         )
         .toList();
@@ -99,11 +121,12 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
     return results
         .map(
           (e) => Freelance(
-              id: e.id,
-              title: e.properties.code.title.first.text.content,
-              nda: e.properties.nda.select?.name == 'Sì',
-              workWith: e.properties.relationship.select?.name ?? '',
-              compensation: e.properties.budget.richText.first.text.content),
+            id: e.id,
+            title: e.properties.code.title.first.text.content,
+            nda: e.properties.nda.select?.name == 'Sì',
+            workWith: e.properties.relationship.select?.name ?? '',
+            compensation: e.properties.budget.richText.first.text.content,
+          ),
         )
         .toList();
   }

@@ -45,3 +45,18 @@ class SearchTextChanged extends JobOfferListEvent {
   @override
   List<Object> get props => [searchText];
 }
+
+class OpportunityFilterTap extends JobOfferListEvent {}
+
+class FilterTap extends JobOfferListEvent {
+  const FilterTap(this.filter);
+
+  final Filter filter;
+
+  @override
+  List<Object> get props => [filter];
+}
+
+class CancelFilterTap extends JobOfferListEvent {}
+
+class ApplyFilterTap extends JobOfferListEvent {}
