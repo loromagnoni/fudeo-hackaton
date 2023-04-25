@@ -17,6 +17,15 @@ class JobOfferListChange extends JobOfferListEvent {
   List<Object> get props => [jobOfferList];
 }
 
+class FreelanceListChange extends JobOfferListEvent {
+  const FreelanceListChange(this.freelanceList);
+
+  final List<Freelance> freelanceList;
+
+  @override
+  List<Object> get props => [freelanceList];
+}
+
 class JobOfferListTap extends JobOfferListEvent {
   const JobOfferListTap(this.jobOffer);
 
