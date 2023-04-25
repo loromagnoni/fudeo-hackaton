@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/filters.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/no_results_message.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/opportunity_type_toggle.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
@@ -74,13 +75,15 @@ class JobListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<JobOfferListBloc, JobOfferListState>(
-      builder: (context, state) => ListView(
-        children: List.of(
-          state.filteredOpportunities.map(
-            (o) => OpportunityCard(opportunity: o),
-          ),
-        ),
-      ),
+      builder: (context, state) => state.filteredOpportunities.isNotEmpty
+          ? ListView(
+              children: List.of(
+                state.filteredOpportunities.map(
+                  (o) => OpportunityCard(opportunity: o),
+                ),
+              ),
+            )
+          : const NoResultsMessage(),
     );
   }
 
