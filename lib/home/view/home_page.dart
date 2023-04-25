@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
+import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,13 +36,13 @@ class HomeView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(width: 10),
-            Icon(
+            const Icon(
               Icons.brightness_5_sharp,
               size: 20,
               color: AppColors.navy,
             ),
             const SizedBox(width: 10),
-            Text(
+            const Text(
               'Light mode',
               style: AppFonts.label,
             )
@@ -104,7 +105,7 @@ class HomeView extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Text('Vedi tutti'))
+                          child: const Text('Vedi tutti'))
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -118,7 +119,23 @@ class HomeView extends StatelessWidget {
                           for (var opportunity in state.opportunities)
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: OpportunityCard(opportunity: opportunity),
+                              child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute<void>(
+                                        builder: (context) =>
+                                            opportunity.type ==
+                                                    OpportunityType.jobOffer
+                                                ? JobOfferDetailPage(
+                                                    id: opportunity.id,
+                                                  )
+                                                : Container(),
+                                      ),
+                                    );
+                                  },
+                                  child: Ink(
+                                      child: OpportunityCard(
+                                          opportunity: opportunity))),
                             ),
                         ],
                       );

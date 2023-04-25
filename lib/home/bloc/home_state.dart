@@ -70,6 +70,7 @@ class Opportunity extends Equatable {
         jobOffer.contract,
         jobOffer.location,
       ],
+      type: OpportunityType.jobOffer,
     );
   }
 
@@ -82,6 +83,7 @@ class Opportunity extends Equatable {
         freelance.compensation,
         freelance.nda ? 'NDA' : 'No NDA',
       ],
+      type: OpportunityType.freelanceProject,
     );
   }
 
@@ -90,12 +92,14 @@ class Opportunity extends Equatable {
     required this.title,
     required this.workWithOrFor,
     required this.features,
+    required this.type,
   });
 
   final String id;
   final String title;
   final String workWithOrFor;
   final List<String> features;
+  final OpportunityType type;
 
   @override
   List<Object?> get props => [
@@ -104,4 +108,9 @@ class Opportunity extends Equatable {
         workWithOrFor,
         features,
       ];
+}
+
+enum OpportunityType {
+  jobOffer,
+  freelanceProject,
 }

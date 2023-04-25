@@ -8,6 +8,7 @@ class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color extraDarkGrey = Color(0xFF353535);
   static const Color lightGrey = Color(0xFFEFEFEF);
+  static const Color ultraLightGrey = Color(0xFFF8F8F8);
 
   static const Color homeOpportunityCardBackground = Color(0xFFFFFFFF);
   static const Color grey = Color(0xFFCECECE);
