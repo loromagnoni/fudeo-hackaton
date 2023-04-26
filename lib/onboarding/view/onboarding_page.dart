@@ -16,6 +16,7 @@ class OnboardingPage extends StatelessWidget {
     final aspectRatio = width / height;
     final usingSmallScreen = aspectRatio > 0.6;
     final imageSize = usingSmallScreen ? width * 0.6 : width * 0.8;
+    
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: padding),
