@@ -42,6 +42,36 @@ class FiltersDialogArea extends StatelessWidget {
                           ),
                         ],
                       ),
+                      ExpansionTile(
+                        title: Text('Seniority'),
+                        children: [
+                          FilterItem(
+                            label: 'Junior',
+                            filter: Filter.junior,
+                          ),
+                          FilterItem(
+                            label: 'Mid',
+                            filter: Filter.mid,
+                          ),
+                          FilterItem(
+                            label: 'Senior',
+                            filter: Filter.senior,
+                          ),
+                        ],
+                      ),
+                      ExpansionTile(
+                        title: Text('Contratto'),
+                        children: [
+                          FilterItem(
+                            label: 'Full Time',
+                            filter: Filter.fullTime,
+                          ),
+                          FilterItem(
+                            label: 'Part Time',
+                            filter: Filter.partTime,
+                          ),
+                        ],
+                      ),
                       TextButton(
                           onPressed: () =>
                               BlocProvider.of<JobOfferListBloc>(context)

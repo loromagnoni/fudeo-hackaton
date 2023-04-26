@@ -4,6 +4,10 @@ import 'package:rxdart/subjects.dart';
 
 enum TeamLocation { fullRemote, hybrid, onSite }
 
+enum Contract { fullTime, partTime }
+
+enum Seniority { junion, mid, senior }
+
 TeamLocation? teamLocationFromString(String? teamLocation) {
   if (teamLocation == null) return null;
   switch (teamLocation) {
@@ -18,26 +22,64 @@ TeamLocation? teamLocationFromString(String? teamLocation) {
   }
 }
 
+Seniority? seniorityFromString(String? seniority) {
+  if (seniority == null) return null;
+  switch (seniority) {
+    case 'Junior':
+      return Seniority.junion;
+    case 'Mid':
+      return Seniority.mid;
+    case 'Senior':
+      return Seniority.senior;
+    default:
+      throw Exception('Invalid seniority');
+  }
+}
+
+Contract? contractFromString(String? contract) {
+  if (contract == null) return null;
+  switch (contract) {
+    case 'Full time':
+      return Contract.fullTime;
+    case 'Part time':
+      return Contract.partTime;
+    default:
+      throw Exception('Invalid contract');
+  }
+}
+
+String stringFromContract(Contract? contract) {
+  if (contract == null) return '';
+  switch (contract) {
+    case Contract.fullTime:
+      return 'Full time';
+    case Contract.partTime:
+      return 'Part time';
+  }
+}
+
 class JobOffer extends Equatable {
   const JobOffer({
     required this.id,
     required this.title,
     required this.company,
     required this.location,
-    required this.contract,
-    required this.teamLocation,
+    this.seniority,
+    this.contract,
+    this.teamLocation,
   });
 
   final String title;
   final String id;
   final String company;
   final String location;
-  final String contract;
+  final Contract? contract;
   final TeamLocation? teamLocation;
+  final Seniority? seniority;
 
   @override
   List<Object?> get props =>
-      [title, id, company, location, contract, teamLocation];
+      [title, id, company, location, contract, teamLocation, seniority];
 }
 
 class Freelance extends Equatable {
@@ -107,9 +149,10 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
             location: e.properties.location.richText.isEmpty
                 ? ''
                 : e.properties.location.richText.first.text.content,
-            contract: e.properties.contract.select?.name ?? '',
+            contract: contractFromString(e.properties.contract.select?.name),
             teamLocation:
                 teamLocationFromString(e.properties.team.select?.name),
+            seniority: seniorityFromString(e.properties.seniority.select?.name),
           ),
         )
         .toList();
