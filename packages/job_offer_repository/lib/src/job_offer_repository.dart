@@ -128,6 +128,11 @@ class Freelance extends Equatable {
     required this.nda,
     required this.workWith,
     required this.compensation,
+    this.applyUrl,
+    this.description,
+    this.request,
+    this.timeline,
+    this.payment,
   });
 
   final String title;
@@ -135,9 +140,25 @@ class Freelance extends Equatable {
   final bool nda;
   final String workWith;
   final String compensation;
+  final String? description;
+  final String? applyUrl;
+  final String? request;
+  final String? timeline;
+  final String? payment;
 
   @override
-  List<Object?> get props => [title, id, nda, workWith, compensation];
+  List<Object?> get props => [
+        title,
+        id,
+        nda,
+        workWith,
+        compensation,
+        description,
+        applyUrl,
+        request,
+        timeline,
+        payment
+      ];
 }
 
 class JobOfferRepository {
@@ -157,6 +178,12 @@ class JobOfferRepository {
 
   JobOffer getJobOfferById(String id) {
     return _jobOfferListController.value.firstWhere(
+      (element) => element.id == id,
+    );
+  }
+
+  Freelance getFreelanceById(String id) {
+    return _freelanceListController.value.firstWhere(
       (element) => element.id == id,
     );
   }
@@ -215,6 +242,17 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
   }
 }
 
+// final String title;
+// final String id;
+// final bool nda;
+// final String workWith;
+// final String compensation;
+// final String? description;
+// final String? applyUrl;
+// final String? request;
+// final String? timeline;
+// final String? payment;
+
 extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
   List<Freelance> toFreelanceProjectList() {
     return results
@@ -225,6 +263,20 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
             nda: e.properties.nda.select?.name == 'Sì',
             workWith: e.properties.relationship.select?.name ?? '',
             compensation: e.properties.budget.richText.first.text.content,
+            description: e.properties.description.richText
+                .map((el) => el.text.content)
+                .join('\n'),
+            applyUrl:
+                e.properties.applicationProcess.richText.first.text.content,
+            request: e.properties.request.richText
+                .map((el) => el.text.content)
+                .join('\n'),
+            timeline: e.properties.schedule.richText
+                .map((el) => el.text.content)
+                .join('\n'),
+            payment: e.properties.paymentTiming.richText
+                .map((el) => el.text.content)
+                .join('\n'),
           ),
         )
         .toList();

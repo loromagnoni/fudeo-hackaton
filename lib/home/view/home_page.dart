@@ -6,6 +6,7 @@ import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
+import 'package:fudeo_hackaton/project_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
@@ -133,24 +134,8 @@ class HomeView extends StatelessWidget {
                           for (var opportunity in state.opportunities)
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute<void>(
-                                      builder: (context) => opportunity.type ==
-                                              OpportunityType.jobOffer
-                                          ? JobOfferDetailPage(
-                                              id: opportunity.id,
-                                            )
-                                          : Container(),
-                                    ),
-                                  );
-                                },
-                                child: Ink(
-                                  child: OpportunityCard(
-                                    opportunity: opportunity,
-                                  ),
-                                ),
+                              child: OpportunityCard(
+                                opportunity: opportunity,
                               ),
                             ),
                         ],
