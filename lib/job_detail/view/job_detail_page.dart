@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
+import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/view/favourite_checkbox.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:job_offer_repository/job_offer_repository.dart';
 
 class JobOfferDetailPage extends StatelessWidget {
   const JobOfferDetailPage({super.key, required this.id});
@@ -9,6 +13,7 @@ class JobOfferDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final jobOffer = context.read<JobOfferRepository>().getJobOfferById(id);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -26,13 +31,41 @@ class JobOfferDetailPage extends StatelessWidget {
             FavouriteCheckbox(id: id),
           ],
         ),
-        body: Container(
-          child: Column(
-            children: const [
-              SizedBox(height: 32),
-              Text('41 giorni fa'),
-            ],
-          ),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 32),
+                  CreatedDate(),
+                  Row(
+                    children: [
+                      Text(jobOffer.title),
+                      IconButton(
+                        onPressed: null,
+                        icon: Icon(Icons.share),
+                      ),
+                    ],
+                  ),
+                  Text(jobOffer.company),
+                  if (jobOffer.salary != null) Text(jobOffer.salary!),
+                  Text(jobOffer.location),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        if (jobOffer.teamLocation != null)
+                          Text(stringFromTeamLocation(jobOffer.teamLocation)),
+                        if (jobOffer.seniority != null)
+                          Text(stringFromSeniority(jobOffer.seniority!)),
+                        if (jobOffer.contract != null)
+                          Text(stringFromContract(jobOffer.contract!)),
+                      ]),
+                  if (jobOffer.description != null) Text(jobOffer.description!)
+                ],
+              ),
+            ),
+            ApplyButton(url: jobOffer.applyUrl),
+          ],
         ));
   }
 }

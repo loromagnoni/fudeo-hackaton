@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
+import 'package:fudeo_hackaton/job_offer_list/bloc/filter.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 
 part 'job_offer_list_event.dart';

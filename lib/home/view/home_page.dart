@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fudeo_hackaton/favourites/view/favourite_page.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
@@ -59,13 +60,16 @@ class HomeView extends StatelessWidget {
         leadingWidth: 100,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.bookmark_outline,
-              size: 20,
-              color: AppColors.black,
-            ),
-          ),
+              onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const FavouritePage(),
+                    ),
+                  ),
+              icon: const Icon(
+                Icons.bookmark_outline,
+                size: 20,
+                color: AppColors.black,
+              )),
         ],
         backgroundColor: AppColors.blueShadesLight.withAlpha(50),
       ),

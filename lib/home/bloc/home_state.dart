@@ -67,7 +67,7 @@ class Opportunity extends Equatable {
       title: jobOffer.title,
       workWithOrFor: jobOffer.company,
       features: [
-        jobOffer.contract,
+        stringFromContract(jobOffer.contract),
         jobOffer.location,
       ],
       type: OpportunityType.jobOffer,

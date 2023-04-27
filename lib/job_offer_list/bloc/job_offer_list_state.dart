@@ -2,7 +2,16 @@ part of 'job_offer_list_bloc.dart';
 
 enum OpportunityType { jobOffer, freelanceProject }
 
-enum Filter { fullRemote, hybrid, onSite }
+enum Filter {
+  fullRemote,
+  hybrid,
+  onSite,
+  fullTime,
+  partTime,
+  junior,
+  mid,
+  senior
+}
 
 class OpportunityFilter extends Equatable {
   const OpportunityFilter({this.title, this.filters = const []});
@@ -25,12 +34,6 @@ class OpportunityFilter extends Equatable {
     );
   }
 
-  bool containsLocationFilter() {
-    return filters.contains(Filter.fullRemote) ||
-        filters.contains(Filter.hybrid) ||
-        filters.contains(Filter.onSite);
-  }
-
   @override
   List<Object?> get props => [title, filters];
 }
@@ -51,19 +54,7 @@ abstract class JobOfferListState extends Equatable {
   List<Opportunity> get filteredOpportunities {
     final opportunities = selectedType == OpportunityType.jobOffer
         ? jobOfferList
-            .where((j) {
-              if (filter.containsLocationFilter()) {
-                final matchFullRemote =
-                    filter.filters.contains(Filter.fullRemote) &&
-                        j.teamLocation == TeamLocation.fullRemote;
-                final matchHybrid = filter.filters.contains(Filter.hybrid) &&
-                    j.teamLocation == TeamLocation.hybrid;
-                final matchOnSite = filter.filters.contains(Filter.onSite) &&
-                    j.teamLocation == TeamLocation.onSite;
-                return matchFullRemote || matchHybrid || matchOnSite;
-              }
-              return true;
-            })
+            .where(matchFilter(filter))
             .toList()
             .map(Opportunity.fromJobOffer)
             .toList()

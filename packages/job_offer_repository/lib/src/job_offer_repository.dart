@@ -4,6 +4,10 @@ import 'package:rxdart/subjects.dart';
 
 enum TeamLocation { fullRemote, hybrid, onSite }
 
+enum Contract { fullTime, partTime }
+
+enum Seniority { junion, mid, senior }
+
 TeamLocation? teamLocationFromString(String? teamLocation) {
   if (teamLocation == null) return null;
   switch (teamLocation) {
@@ -18,26 +22,103 @@ TeamLocation? teamLocationFromString(String? teamLocation) {
   }
 }
 
+Seniority? seniorityFromString(String? seniority) {
+  if (seniority == null) return null;
+  switch (seniority) {
+    case 'Junior':
+      return Seniority.junion;
+    case 'Mid':
+      return Seniority.mid;
+    case 'Senior':
+      return Seniority.senior;
+    default:
+      throw Exception('Invalid seniority');
+  }
+}
+
+Contract? contractFromString(String? contract) {
+  if (contract == null) return null;
+  switch (contract) {
+    case 'Full time':
+      return Contract.fullTime;
+    case 'Part time':
+      return Contract.partTime;
+    default:
+      throw Exception('Invalid contract');
+  }
+}
+
+String stringFromContract(Contract? contract) {
+  if (contract == null) return '';
+  switch (contract) {
+    case Contract.fullTime:
+      return 'Full time';
+    case Contract.partTime:
+      return 'Part time';
+  }
+}
+
+String stringFromTeamLocation(TeamLocation? teamLocation) {
+  if (teamLocation == null) return '';
+  switch (teamLocation) {
+    case TeamLocation.fullRemote:
+      return 'Full Remote';
+    case TeamLocation.hybrid:
+      return 'Ibrido';
+    case TeamLocation.onSite:
+      return 'In sede';
+  }
+}
+
+String stringFromSeniority(Seniority seniority) {
+  switch (seniority) {
+    case Seniority.junion:
+      return 'Junior';
+    case Seniority.mid:
+      return 'Mid';
+    case Seniority.senior:
+      return 'Senior';
+  }
+}
+
 class JobOffer extends Equatable {
   const JobOffer({
     required this.id,
     required this.title,
     required this.company,
     required this.location,
-    required this.contract,
-    required this.teamLocation,
+    this.seniority,
+    this.contract,
+    this.teamLocation,
+    this.salary,
+    this.description,
+    this.applyUrl,
   });
 
   final String title;
   final String id;
   final String company;
   final String location;
-  final String contract;
+  final String? salary;
+  final Contract? contract;
   final TeamLocation? teamLocation;
+  final Seniority? seniority;
+  final String? description;
+  final String? applyUrl;
 
   @override
-  List<Object?> get props =>
-      [title, id, company, location, contract, teamLocation];
+  List<Object?> get props => [
+        title,
+        id,
+        company,
+        location,
+        contract,
+        teamLocation,
+        seniority,
+        salary,
+        description,
+        applyUrl
+      ];
 }
 
 class Freelance extends Equatable {
@@ -74,6 +155,12 @@ class JobOfferRepository {
     yield* _freelanceListController.stream;
   }
 
+  JobOffer getJobOfferById(String id) {
+    return _jobOfferListController.value.firstWhere(
+      (element) => element.id == id,
+    );
+  }
+
   Future<void> loadJobOffers() async {
     if (!_loaded) {
       final response = await _fudeoAPI.getJobOffers();
@@ -107,9 +194,21 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
             location: e.properties.location.richText.isEmpty
                 ? ''
                 : e.properties.location.richText.first.text.content,
-            contract: e.properties.contract.select?.name ?? '',
+            contract: contractFromString(e.properties.contract.select?.name),
             teamLocation:
                 teamLocationFromString(e.properties.team.select?.name),
+            seniority: seniorityFromString(e.properties.seniority.select?.name),
+            salary: e.properties.salary.richText.isEmpty
+                ? null
+                : e.properties.salary.richText.first.text.content,
+            description: e.properties.description.richText.isEmpty
+                ? null
+                : e.properties.description.richText
+                    .map((el) => el.text.content)
+                    .join('\n'),
+            applyUrl: e.properties.applicationProcess.richText.isEmpty
+                ? null
+                : e.properties.applicationProcess.richText.first.text.content,
           ),
         )
         .toList();
