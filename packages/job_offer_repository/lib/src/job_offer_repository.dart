@@ -58,6 +58,29 @@ String stringFromContract(Contract? contract) {
   }
 }
 
+String stringFromTeamLocation(TeamLocation? teamLocation) {
+  if (teamLocation == null) return '';
+  switch (teamLocation) {
+    case TeamLocation.fullRemote:
+      return 'Full Remote';
+    case TeamLocation.hybrid:
+      return 'Ibrido';
+    case TeamLocation.onSite:
+      return 'In sede';
+  }
+}
+
+String stringFromSeniority(Seniority seniority) {
+  switch (seniority) {
+    case Seniority.junion:
+      return 'Junior';
+    case Seniority.mid:
+      return 'Mid';
+    case Seniority.senior:
+      return 'Senior';
+  }
+}
+
 class JobOffer extends Equatable {
   const JobOffer({
     required this.id,
@@ -67,19 +90,35 @@ class JobOffer extends Equatable {
     this.seniority,
     this.contract,
     this.teamLocation,
+    this.salary,
+    this.description,
+    this.applyUrl,
   });
 
   final String title;
   final String id;
   final String company;
   final String location;
+  final String? salary;
   final Contract? contract;
   final TeamLocation? teamLocation;
   final Seniority? seniority;
+  final String? description;
+  final String? applyUrl;
 
   @override
-  List<Object?> get props =>
-      [title, id, company, location, contract, teamLocation, seniority];
+  List<Object?> get props => [
+        title,
+        id,
+        company,
+        location,
+        contract,
+        teamLocation,
+        seniority,
+        salary,
+        description,
+        applyUrl
+      ];
 }
 
 class Freelance extends Equatable {
@@ -114,6 +153,12 @@ class JobOfferRepository {
 
   Stream<List<Freelance>> get freelanceList async* {
     yield* _freelanceListController.stream;
+  }
+
+  JobOffer getJobOfferById(String id) {
+    return _jobOfferListController.value.firstWhere(
+      (element) => element.id == id,
+    );
   }
 
   Future<void> loadJobOffers() async {
@@ -153,6 +198,17 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
             teamLocation:
                 teamLocationFromString(e.properties.team.select?.name),
             seniority: seniorityFromString(e.properties.seniority.select?.name),
+            salary: e.properties.salary.richText.isEmpty
+                ? null
+                : e.properties.salary.richText.first.text.content,
+            description: e.properties.description.richText.isEmpty
+                ? null
+                : e.properties.description.richText
+                    .map((el) => el.text.content)
+                    .join('\n'),
+            applyUrl: e.properties.applicationProcess.richText.isEmpty
+                ? null
+                : e.properties.applicationProcess.richText.first.text.content,
           ),
         )
         .toList();
