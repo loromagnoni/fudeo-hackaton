@@ -17,10 +17,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => HomeBloc(
-              jobOfferRepository: context.read<JobOfferRepository>(),
-            ),
-        child: const HomeView());
+      create: (context) => HomeBloc(
+        jobOfferRepository: context.read<JobOfferRepository>(),
+      ),
+      child: const HomeView(),
+    );
   }
 }
 
@@ -31,19 +32,25 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final aspectRatio = width / height;
+    final usingSmallScreen = aspectRatio > 0.6;
+    final imageSize = usingSmallScreen ? width * 0.7 : width * 0.8;
+
     return Scaffold(
       appBar: AppBar(
         leading: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(width: 10),
-            const Icon(
+          children: const [
+            SizedBox(width: 10),
+            Icon(
               Icons.brightness_5_sharp,
               size: 20,
               color: AppColors.navy,
             ),
-            const SizedBox(width: 10),
-            const Text(
+            SizedBox(width: 10),
+            Text(
               'Light mode',
               style: AppFonts.label,
             )
@@ -84,6 +91,7 @@ class HomeView extends StatelessWidget {
                   Center(
                     child: SvgPicture.asset(
                       'assets/hero.svg',
+                      width: imageSize,
                     ),
                   )
                 ],
@@ -103,14 +111,15 @@ class HomeView extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (context) => const JobOfferListPage(),
-                              ),
-                            );
-                          },
-                          child: const Text('Vedi tutti'))
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (context) => const JobOfferListPage(),
+                            ),
+                          );
+                        },
+                        child: const Text('Vedi tutti'),
+                      )
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -125,22 +134,24 @@ class HomeView extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute<void>(
-                                        builder: (context) =>
-                                            opportunity.type ==
-                                                    OpportunityType.jobOffer
-                                                ? JobOfferDetailPage(
-                                                    id: opportunity.id,
-                                                  )
-                                                : Container(),
-                                      ),
-                                    );
-                                  },
-                                  child: Ink(
-                                      child: OpportunityCard(
-                                          opportunity: opportunity))),
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                      builder: (context) => opportunity.type ==
+                                              OpportunityType.jobOffer
+                                          ? JobOfferDetailPage(
+                                              id: opportunity.id,
+                                            )
+                                          : Container(),
+                                    ),
+                                  );
+                                },
+                                child: Ink(
+                                  child: OpportunityCard(
+                                    opportunity: opportunity,
+                                  ),
+                                ),
+                              ),
                             ),
                         ],
                       );
