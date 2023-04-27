@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
+import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:social_share_repository/social_share_repository.dart';
 
 class SocialShare extends StatelessWidget {
-  const SocialShare({super.key});
+  const SocialShare({required this.jobOfferId, super.key});
+
+  final String jobOfferId;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SocialShareBloc(
         socialShareRepository: context.read<SocialShareRepository>(),
+        jobOfferId: jobOfferId,
+        jobOfferTitle: context
+            .read<JobOfferRepository>()
+            .getJobOfferById(jobOfferId)
+            .title,
       ),
       child: const ShareButton(),
     );

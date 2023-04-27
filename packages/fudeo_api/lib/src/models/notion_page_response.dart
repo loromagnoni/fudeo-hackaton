@@ -21,7 +21,7 @@ class NotionPageResponse<T extends Deserializable> extends Deserializable {
             : null,
         parent = Parent.fromJson(json['parent'] as Map<String, dynamic>),
         archived = json['archived'] as bool,
-        url = json['url'] as String, // questo e` l'url che ci serve per lo share social
+        url = json['url'] as String,
         properties = fromJson(json['properties'] as Map<String, dynamic>),
         super.fromJson();
 
