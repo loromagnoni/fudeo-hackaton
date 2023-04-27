@@ -1,9 +1,26 @@
+import 'package:local_storage/local_storage.dart';
 import 'package:rxdart/rxdart.dart';
 
+const _favouritesKey = 'favourites';
+
 class FavouritesRepository {
+  FavouritesRepository({required LocalStorage localStorage})
+      : _localStorage = localStorage;
+
+  final LocalStorage _localStorage;
   final _favouritesController = BehaviorSubject<List<String>>();
+  var _loaded = false;
 
   Stream<List<String>> get favourites async* {
+    if (!_loaded) {
+      final favourites = await _localStorage.load(_favouritesKey);
+      _favouritesController
+        ..add(favourites?.split(',') ?? [])
+        ..listen((value) {
+          _localStorage.save(_favouritesKey, value.join(','));
+        });
+      _loaded = true;
+    }
     yield* _favouritesController.stream;
   }
 
