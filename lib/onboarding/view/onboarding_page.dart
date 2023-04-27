@@ -1,9 +1,9 @@
-import 'package:conditional_flex_fit/conditional_flex_fit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fudeo_hackaton/home/home.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
