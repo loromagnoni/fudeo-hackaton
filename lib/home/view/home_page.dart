@@ -11,6 +11,7 @@ import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -41,111 +42,118 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            SizedBox(width: 10),
-            Icon(
-              Icons.brightness_5_sharp,
-              size: 20,
-              color: AppColors.navy,
-            ),
-            SizedBox(width: 10),
-            Text(
-              'Light mode',
-              style: AppFonts.label,
-            )
-          ],
-        ),
+        automaticallyImplyLeading: false,
         elevation: 0,
-        leadingWidth: 100,
         actions: [
-          IconButton(
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: IconButton(
               onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const FavouritePage(),
-                    ),
-                  ),
-              icon: const Icon(
-                Icons.bookmark_outline,
-                size: 20,
+                MaterialPageRoute(
+                  builder: (context) => const FavouritePage(),
+                ),
+              ),
+              icon: Icon(
+                PhosphorIcons.regular.bookmarkSimple,
+                size: 28,
                 color: AppColors.black,
-              )),
-        ],
-        backgroundColor: AppColors.blueShadesLight.withAlpha(50),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: AppColors.blueShadesLight.withAlpha(50),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Cosa cerchi?',
-                    style: AppFonts.titleNav,
-                    textAlign: TextAlign.left,
-                  ),
-                  Center(
-                    child: SvgPicture.asset(
-                      'assets/hero.svg',
-                      width: imageSize,
-                    ),
-                  )
-                ],
               ),
             ),
-            const SizedBox(height: 48),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  Row(
+          ),
+        ],
+        backgroundColor: AppColors.blueShadesLight,
+      ),
+      body: ColoredBox(
+        color: AppColors.white,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.blueShadesLight,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(25),
+                  ),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Expanded(
-                        child: Text(
-                          'Ultimi annunci inseriti',
-                          style: AppFonts.homeHeader,
-                        ),
+                      const Text(
+                        'Cosa cerchi?',
+                        style: AppFonts.titleNav,
+                        textAlign: TextAlign.left,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute<void>(
-                              builder: (context) => const JobOfferListPage(),
-                            ),
-                          );
-                        },
-                        child: const Text('Vedi tutti'),
+                      Center(
+                        child: SvgPicture.asset(
+                          'assets/hero.svg',
+                          width: imageSize,
+                        ),
                       )
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      if (state is! HomeSuccess) {
-                        return const LoadingListShimmers();
-                      }
-                      return Column(
-                        children: [
-                          for (var opportunity in state.opportunities)
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              child: OpportunityCard(
-                                opportunity: opportunity,
-                              ),
-                            ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 48),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: Text(
+                            'Ultimi annunci inseriti',
+                            style: AppFonts.homeHeader,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute<void>(
+                                builder: (context) => const JobOfferListPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            'Vedi tutti',
+                            style: AppFonts.homeCaption,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    BlocBuilder<HomeBloc, HomeState>(
+                      builder: (context, state) {
+                        if (state is! HomeSuccess) {
+                          return const LoadingListShimmers();
+                        }
+                        return Column(
+                          children: [
+                            for (var opportunity in state.opportunities)
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                child: OpportunityCard(
+                                  opportunity: opportunity,
+                                ),
+                              ),
+                            SizedBox(
+                              height: 48,
+                            )
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

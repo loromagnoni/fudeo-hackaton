@@ -50,10 +50,15 @@ class HomeSuccess extends HomeState {
   final List<Freelance> freelanceProjects;
 
   List<Opportunity> get opportunities {
-    return <Opportunity>[
+    final merged = <Opportunity>[
       ...jobOffers.map(Opportunity.fromJobOffer),
       ...freelanceProjects.map(Opportunity.fromFreelance),
-    ].take(3).toList();
+    ];
+    // ignore: cascade_invocations
+    merged.sort((a, b) {
+      return a.publishDate.compareTo(b.publishDate);
+    });
+    return merged.take(3).toList();
   }
 
   @override
@@ -71,6 +76,7 @@ class Opportunity extends Equatable {
         jobOffer.location,
       ],
       type: OpportunityType.jobOffer,
+      publishDate: jobOffer.publishDate,
     );
   }
 
@@ -84,6 +90,7 @@ class Opportunity extends Equatable {
         freelance.nda ? 'NDA' : 'No NDA',
       ],
       type: OpportunityType.freelanceProject,
+      publishDate: freelance.publishDate,
     );
   }
 
@@ -93,6 +100,7 @@ class Opportunity extends Equatable {
     required this.workWithOrFor,
     required this.features,
     required this.type,
+    required this.publishDate,
   });
 
   final String id;
@@ -100,6 +108,7 @@ class Opportunity extends Equatable {
   final String workWithOrFor;
   final List<String> features;
   final OpportunityType type;
+  final DateTime publishDate;
 
   @override
   List<Object?> get props => [
@@ -107,6 +116,8 @@ class Opportunity extends Equatable {
         title,
         workWithOrFor,
         features,
+        type,
+        publishDate,
       ];
 }
 

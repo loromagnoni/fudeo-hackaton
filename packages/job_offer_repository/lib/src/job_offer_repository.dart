@@ -93,12 +93,14 @@ class JobOffer extends Equatable {
     this.salary,
     this.description,
     this.applyUrl,
+    required this.publishDate,
   });
 
   final String title;
   final String id;
   final String company;
   final String location;
+  final DateTime publishDate;
   final String? salary;
   final Contract? contract;
   final TeamLocation? teamLocation;
@@ -117,7 +119,8 @@ class JobOffer extends Equatable {
         seniority,
         salary,
         description,
-        applyUrl
+        applyUrl,
+        publishDate,
       ];
 }
 
@@ -128,6 +131,7 @@ class Freelance extends Equatable {
     required this.nda,
     required this.workWith,
     required this.compensation,
+    required this.publishDate,
     this.applyUrl,
     this.description,
     this.request,
@@ -139,6 +143,7 @@ class Freelance extends Equatable {
   final String id;
   final bool nda;
   final String workWith;
+  final DateTime publishDate;
   final String compensation;
   final String? description;
   final String? applyUrl;
@@ -154,6 +159,7 @@ class Freelance extends Equatable {
         workWith,
         compensation,
         description,
+        publishDate,
         applyUrl,
         request,
         timeline,
@@ -236,6 +242,7 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
             applyUrl: e.properties.applicationProcess.richText.isEmpty
                 ? null
                 : e.properties.applicationProcess.richText.first.text.content,
+            publishDate: DateTime.parse(e.properties.jobPosted.createdTime),
           ),
         )
         .toList();
@@ -277,6 +284,7 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
             payment: e.properties.paymentTiming.richText
                 .map((el) => el.text.content)
                 .join('\n'),
+            publishDate: DateTime.parse(e.properties.jobPosted.createdTime),
           ),
         )
         .toList();

@@ -6,6 +6,7 @@ import 'package:fudeo_hackaton/project_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/theme/shadows.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OpportunityCard extends StatelessWidget {
   const OpportunityCard({
@@ -43,51 +44,64 @@ class OpportunityCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        opportunity.title,
-                        style: AppFonts.homeOpportunityCardTitle,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.business_outlined,
-                            size: 18,
-                            color: AppColors.extraDarkGrey,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              opportunity.workWithOrFor,
-                              style: AppFonts.homeOpportunityCardSubtitle,
-                              overflow: TextOverflow.ellipsis,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          opportunity.title,
+                          style: AppFonts.homeOpportunityCardTitle,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Icon(
+                              PhosphorIcons.regular.buildings,
+                              size: 18,
+                              color: AppColors.extraDarkGrey,
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                opportunity.workWithOrFor,
+                                style: AppFonts.homeOpportunityCardSubtitle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
                   FavouriteCheckbox(
                     id: opportunity.id,
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               Wrap(
                 spacing: 8,
                 children: [
                   for (var feature in opportunity.features)
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 16,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                          color: AppColors.lightGrey,
-                          borderRadius: BorderRadius.circular(8)),
+                        color: AppColors.lightGrey,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                       child: Text(
                         feature,
                         style: AppFonts.homeOpportunityCardTag,

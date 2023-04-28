@@ -2,6 +2,7 @@ import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../../theme/colors.dart';
 
@@ -29,12 +30,14 @@ class ItemCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<FavouriteCheckboxBloc, FavouriteCheckboxState>(
       bloc: context.read<FavouriteCheckboxBloc>(),
-      builder: (context, state) => IconButton(
-        onPressed: () => context.read<FavouriteCheckboxBloc>().add(
+      builder: (context, state) => InkResponse(
+        onTap: () => context.read<FavouriteCheckboxBloc>().add(
               const FavouriteCheckboxToggled(),
             ),
-        icon: Icon(
-          state.checked ? Icons.bookmark : Icons.bookmark_border,
+        child: Icon(
+          state.checked
+              ? PhosphorIcons.regular.bookmarkSimple
+              : PhosphorIcons.fill.bookmarkSimple,
           size: 32,
           color: AppColors.sky,
         ),

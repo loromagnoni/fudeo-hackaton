@@ -49,3 +49,7 @@ flutter:
           weight: 400
         - asset: fonts/Red_Hat_Text/RedHatText-SemiBold.ttf
           weight: 600
+    - family: RedHatMono
+      fonts:
+        - asset: fonts/Red_Hat_Mono/RedHatMono-Bold.ttf
+          weight: 700

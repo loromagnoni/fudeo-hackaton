@@ -4,14 +4,15 @@ import 'package:fudeo_hackaton/theme/colors.dart';
 class AppFonts {
   static const TextStyle titleNav = TextStyle(
     fontSize: 28,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.bold,
+    fontFamily: 'RedHat',
     color: AppColors.navy,
   );
   static const TextStyle onboardingTitle = TextStyle(
     fontSize: 48,
     fontWeight: FontWeight.bold,
-    color: AppColors.black,
     fontFamily: 'RedHat',
+    color: AppColors.black,
     height: 1.1,
   );
   static const TextStyle onboardingSubTitle = TextStyle(
@@ -31,6 +32,7 @@ class AppFonts {
     fontSize: 16,
     fontWeight: FontWeight.w700,
     color: AppColors.black,
+    fontFamily: 'RedHat',
   );
   static const TextStyle onboardingLink = TextStyle(
       fontSize: 16,
@@ -50,16 +52,26 @@ class AppFonts {
     fontSize: 16,
     fontWeight: FontWeight.w700,
     color: AppColors.black,
+    fontFamily: 'RedHatMono',
   );
   static const TextStyle homeOpportunityCardSubtitle = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w400,
+    fontFamily: 'RedHat',
     color: AppColors.extraDarkGrey,
   );
   static const TextStyle homeOpportunityCardTag = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w700,
+    fontFamily: 'RedHat',
     color: AppColors.extraDarkGrey,
+  );
+
+  static const TextStyle homeCaption = TextStyle(
+    fontSize: 14,
+    color: AppColors.sky,
+    fontFamily: 'RedHat',
+    fontWeight: FontWeight.w600,
   );
   static const TextStyle jobListAppBar = TextStyle(
     fontSize: 18,
