@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fudeo_hackaton/home/home.dart';
+import 'package:fudeo_hackaton/onboarding/widget/proceed_button.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -12,11 +14,11 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final padding = height * 0.04;
+    final padding = height * 0.06;
     final aspectRatio = width / height;
     final usingSmallScreen = aspectRatio > 0.6;
     final imageSize = usingSmallScreen ? width * 0.6 : width * 0.8;
-    
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: padding),
@@ -63,44 +65,12 @@ class OnboardingPage extends StatelessWidget {
                       ),
                       ConditionalFlexFit(
                         wrapWithFlexFit: usingSmallScreen,
-                        child: DecoratedBox(
-                          decoration: const BoxDecoration(
-                            color: AppColors.sky,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(1000)),
-                          ),
-                          child: GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute<void>(
-                                builder: (context) => const HomePage(),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 48,
-                                vertical: 12,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Text(
-                                    'Prosegui',
-                                    style: AppFonts.onboardingButton,
-                                  ),
-                                  Icon(
-                                    Icons.arrow_right_sharp,
-                                    color: AppColors.white,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+                        child: const ProceedButton(),
                       ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
