@@ -16,21 +16,17 @@ class ActiveFilters extends StatelessWidget {
     return BlocBuilder<JobOfferListBloc, JobOfferListState>(
       builder: (context, state) {
         if (state.filter.filters.isEmpty) return Container();
-        return Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: state.filter.filters
-                      .map((f) => FilterChip(filter: f))
-                      .toList(),
-                ),
-              ),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: state.filter.filters
+                  .map((f) => FilterChip(filter: f))
+                  .toList(),
             ),
-          ],
+          ),
         );
       },
     );

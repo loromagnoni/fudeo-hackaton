@@ -133,4 +133,32 @@ class AppFonts {
     color: AppColors.sky,
     fontFamily: 'RedHat',
   );
+
+  static const TextStyle filtersDialogTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle filtersDialogGroupTitle = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w600,
+    color: AppColors.sky,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle filtersDialogItem = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle filtersDialogButton = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.sky,
+    fontFamily: 'RedHat',
+  );
 }
