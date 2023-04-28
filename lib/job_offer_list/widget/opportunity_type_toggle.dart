@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/animated_toggle.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 
@@ -13,13 +14,23 @@ class OpportunityTypeToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-          border: Border.all(color: AppColors.grey, width: 2),
-          borderRadius: BorderRadius.circular(99)),
+        border: Border.all(color: AppColors.grey, width: 1.5),
+        borderRadius: BorderRadius.circular(99),
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(1.5),
         child: BlocBuilder<JobOfferListBloc, JobOfferListState>(
           bloc: context.read<JobOfferListBloc>(),
           builder: (context, state) {
+            return AnimatedToggle(
+              values: ['Assunzioni', 'Freelance'],
+              backgroundColor: AppColors.white,
+              textColor: AppColors.black,
+              buttonColor: AppColors.grey,
+              onToggleCallback: (_) =>
+                  BlocProvider.of<JobOfferListBloc>(context)
+                      .add(OpportunityToggleTap()),
+            );
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
