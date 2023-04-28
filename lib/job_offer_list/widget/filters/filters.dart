@@ -10,20 +10,24 @@ class Filters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(child: SearchBar()),
-        BlocBuilder<JobOfferListBloc, JobOfferListState>(
-          builder: (context, state) {
-            return Visibility(
-                visible: state.selectedType == OpportunityType.jobOffer,
-                child: IconButton(
-                    onPressed: () => BlocProvider.of<JobOfferListBloc>(context)
-                        .add(OpportunityFilterTap()),
-                    icon: Icon(Icons.filter_list_off)));
-          },
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        children: [
+          Expanded(child: SearchBar()),
+          BlocBuilder<JobOfferListBloc, JobOfferListState>(
+            builder: (context, state) {
+              return Visibility(
+                  visible: state.selectedType == OpportunityType.jobOffer,
+                  child: IconButton(
+                      onPressed: () =>
+                          BlocProvider.of<JobOfferListBloc>(context)
+                              .add(OpportunityFilterTap()),
+                      icon: Icon(Icons.filter_list_off)));
+            },
+          )
+        ],
+      ),
     );
   }
 }

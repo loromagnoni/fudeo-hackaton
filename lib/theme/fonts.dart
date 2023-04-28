@@ -98,4 +98,18 @@ class AppFonts {
     color: AppColors.black,
     fontFamily: 'RedHat',
   );
+
+  static const TextStyle searchBar = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle searchBarPlaceholder = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: AppColors.greyDark,
+    fontFamily: 'RedHat',
+  );
 }

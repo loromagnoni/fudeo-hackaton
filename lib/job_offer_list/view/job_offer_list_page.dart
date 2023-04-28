@@ -55,8 +55,9 @@ class JobOfferListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(32),
+      color: AppColors.white,
       child: Column(
         children: [
           OpportunityTypeToggle(),
