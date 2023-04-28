@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/favourites/bloc/favourites_bloc.dart';
+import 'package:fudeo_hackaton/favourites/widget/no_favourites_message.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
@@ -46,16 +47,20 @@ class FavouriteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavouritesBloc, FavouritesState>(
-      builder: (context, state) => state.favouriteOpportunities.isNotEmpty
-          ? ListView(
-              children: List.of(
-                state.favouriteOpportunities.map(
-                  (o) => OpportunityCard(opportunity: o),
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+      color: AppColors.white,
+      child: BlocBuilder<FavouritesBloc, FavouritesState>(
+        builder: (context, state) => state.favouriteOpportunities.isNotEmpty
+            ? ListView(
+                children: List.of(
+                  state.favouriteOpportunities.map(
+                    (o) => OpportunityCard(opportunity: o),
+                  ),
                 ),
-              ),
-            )
-          : const Text('no favourites'),
+              )
+            : const NoFavouritesMessage(),
+      ),
     );
   }
 }

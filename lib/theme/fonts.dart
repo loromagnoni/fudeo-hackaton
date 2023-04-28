@@ -91,4 +91,11 @@ class AppFonts {
     color: AppColors.black,
     fontFamily: 'RedHat',
   );
+
+  static const TextStyle favouriteNoResults = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
 }

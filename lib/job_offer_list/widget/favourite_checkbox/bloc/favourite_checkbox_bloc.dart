@@ -21,9 +21,7 @@ class FavouriteCheckboxBloc
         ) {
     _streamSubscription = favouritesRepository.favourites.listen(
       (event) {
-        if (event.contains(id) != state.checked) {
-          add(FavouriteCheckboxChanged(checked: event.contains(id)));
-        }
+        add(FavouriteCheckboxChanged(checked: event.contains(id)));
       },
     );
     on<FavouriteCheckboxToggled>(_handleFavouriteCheckboxToggled);

@@ -36,8 +36,8 @@ class ItemCheckBox extends StatelessWidget {
             ),
         child: Icon(
           state.checked
-              ? PhosphorIcons.regular.bookmarkSimple
-              : PhosphorIcons.fill.bookmarkSimple,
+              ? PhosphorIcons.fill.bookmarkSimple
+              : PhosphorIcons.regular.bookmarkSimple,
           size: 32,
           color: AppColors.sky,
         ),

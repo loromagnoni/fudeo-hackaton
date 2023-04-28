@@ -40,6 +40,7 @@ flutter:
   assets:
     - assets/onboarding.svg
     - assets/hero.svg
+    - assets/no_result.svg
   fonts:
     - family: RedHat
       fonts:
