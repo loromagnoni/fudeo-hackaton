@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CreatedDate extends StatelessWidget {
-  const CreatedDate({super.key});
+  const CreatedDate({
+    required this.date,
+    super.key,
+  });
+
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
-    return Text(DateTime(2021).toString());
+    return Text(
+      timeago.format(date, locale: 'it'),
+      style: AppFonts.jobDetailDate,
+    );
   }
 }

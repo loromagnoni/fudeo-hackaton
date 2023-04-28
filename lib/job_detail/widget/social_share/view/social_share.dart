@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
+import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:social_share_repository/social_share_repository.dart';
 
 class SocialShare extends StatelessWidget {
@@ -32,11 +34,21 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SocialShareBloc, SocialShareState>(
       bloc: context.read<SocialShareBloc>(),
-      builder: (context, state) => IconButton(
-        icon: const Icon(Icons.share),
-        onPressed: () => context
-            .read<SocialShareBloc>()
-            .add(const PressedSocialShareButton()),
+      builder: (context, state) => DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.sky),
+          borderRadius: BorderRadius.circular(99),
+        ),
+        child: IconButton(
+          icon: Icon(
+            PhosphorIcons.light.shareNetwork,
+            color: AppColors.sky,
+          ),
+          padding: const EdgeInsets.all(16),
+          onPressed: () => context
+              .read<SocialShareBloc>()
+              .add(const PressedSocialShareButton()),
+        ),
       ),
     );
   }

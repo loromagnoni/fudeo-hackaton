@@ -8,6 +8,7 @@ import 'package:fudeo_api/fudeo_api.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:local_storage/local_storage.dart';
 import 'package:social_share_repository/social_share_repository.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 typedef AppBuilder = FutureOr<Widget> Function(
   JobOfferRepository jobOfferRepository,
@@ -35,6 +36,7 @@ Future<void> bootstrap({required AppBuilder builder}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
+  timeago.setLocaleMessages('it', timeago.ItMessages());
 
   Bloc.observer = const AppBlocObserver();
 

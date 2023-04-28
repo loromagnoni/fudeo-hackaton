@@ -37,7 +37,7 @@ class ProjectDetailPage extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 32),
-                  CreatedDate(),
+                  CreatedDate(date: project.publishDate),
                   Row(
                     children: [
                       Text(project.title),
