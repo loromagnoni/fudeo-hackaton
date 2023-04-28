@@ -80,7 +80,7 @@ class JobOfferListInitial extends JobOfferListState {
     super.jobOfferList,
     super.freelanceList,
     super.selectedType,
-    super.searchText,
+    super.filter,
   );
 }
 
@@ -89,7 +89,7 @@ class JobOfferListFilled extends JobOfferListState {
     super.jobOfferList,
     super.freelanceList,
     super.selectedType,
-    super.searchText,
+    super.filter,
   );
 }
 

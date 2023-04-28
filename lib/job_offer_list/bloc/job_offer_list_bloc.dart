@@ -36,6 +36,8 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     on<FilterTap>(_handleFilterTap);
     on<CancelFilterTap>(_handleCancelFilterTap);
     on<ApplyFilterTap>(_handleApplyFilterTap);
+    on<FilterChipTap>(_handleFilterChipTap);
+    on<EmptyFilterTap>(_handleEmptyFilterTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
@@ -196,6 +198,36 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
                   ),
             )
           : state,
+    );
+  }
+
+  void _handleFilterChipTap(
+    FilterChipTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      JobOfferListFilled(
+        state.jobOfferList,
+        state.freelanceList,
+        state.selectedType,
+        state.filter.copyWith(
+            filters:
+                state.filter.filters.where((f) => f != event.filter).toList()),
+      ),
+    );
+  }
+
+  void _handleEmptyFilterTap(
+    EmptyFilterTap event,
+    Emitter<JobOfferListState> emit,
+  ) {
+    emit(
+      JobOfferListFilled(
+        state.jobOfferList,
+        state.freelanceList,
+        state.selectedType,
+        const OpportunityFilter(),
+      ),
     );
   }
 }
