@@ -112,4 +112,25 @@ class AppFonts {
     color: AppColors.greyDark,
     fontFamily: 'RedHat',
   );
+
+  static const TextStyle filterChip = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.bold,
+    color: AppColors.sky,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle listNoResults = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+  );
+
+  static const TextStyle listEmptyFilters = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: AppColors.sky,
+    fontFamily: 'RedHat',
+  );
 }

@@ -29,15 +29,12 @@ class FiltersDialogArea extends StatelessWidget {
                         title: Text('Team'),
                         children: [
                           FilterItem(
-                            label: 'Full Remote',
                             filter: Filter.fullRemote,
                           ),
                           FilterItem(
-                            label: 'Ibrido',
                             filter: Filter.hybrid,
                           ),
                           FilterItem(
-                            label: 'In sede',
                             filter: Filter.onSite,
                           ),
                         ],
@@ -46,15 +43,12 @@ class FiltersDialogArea extends StatelessWidget {
                         title: Text('Seniority'),
                         children: [
                           FilterItem(
-                            label: 'Junior',
                             filter: Filter.junior,
                           ),
                           FilterItem(
-                            label: 'Mid',
                             filter: Filter.mid,
                           ),
                           FilterItem(
-                            label: 'Senior',
                             filter: Filter.senior,
                           ),
                         ],
@@ -63,11 +57,9 @@ class FiltersDialogArea extends StatelessWidget {
                         title: Text('Contratto'),
                         children: [
                           FilterItem(
-                            label: 'Full Time',
                             filter: Filter.fullTime,
                           ),
                           FilterItem(
-                            label: 'Part Time',
                             filter: Filter.partTime,
                           ),
                         ],

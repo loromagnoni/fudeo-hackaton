@@ -60,3 +60,14 @@ class FilterTap extends JobOfferListEvent {
 class CancelFilterTap extends JobOfferListEvent {}
 
 class ApplyFilterTap extends JobOfferListEvent {}
+
+class FilterChipTap extends JobOfferListEvent {
+  const FilterChipTap(this.filter);
+
+  final Filter filter;
+
+  @override
+  List<Object> get props => [filter];
+}
+
+class EmptyFilterTap extends JobOfferListEvent {}
