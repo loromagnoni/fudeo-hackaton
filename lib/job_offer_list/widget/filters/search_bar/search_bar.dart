@@ -8,7 +8,9 @@ import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
+  SearchBar({super.key});
+
+  final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +29,27 @@ class SearchBar extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  cursorColor: AppColors.sky,
-                  style: AppFonts.searchBar,
-                  onChanged: (value) =>
-                      BlocProvider.of<JobOfferListBloc>(context).add(
-                    SearchTextChanged(value),
-                  ),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: AppFonts.searchBarPlaceholder,
-                    hintText: 'Cerca...',
+                child: BlocListener<JobOfferListBloc, JobOfferListState>(
+                  listener: (context, state) {
+                    _textController
+                      ..text = state.filter.title ?? ''
+                      ..selection = TextSelection.collapsed(
+                        offset: _textController.text.length,
+                      );
+                  },
+                  child: TextField(
+                    controller: _textController,
+                    cursorColor: AppColors.sky,
+                    style: AppFonts.searchBar,
+                    onChanged: (value) =>
+                        BlocProvider.of<JobOfferListBloc>(context).add(
+                      SearchTextChanged(value),
+                    ),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: AppFonts.searchBarPlaceholder,
+                      hintText: 'Cerca...',
+                    ),
                   ),
                 ),
               ),
