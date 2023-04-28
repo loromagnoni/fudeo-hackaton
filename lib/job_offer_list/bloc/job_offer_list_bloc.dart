@@ -43,7 +43,9 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         _jobOfferRepository.freelanceList.listen((list) {
       add(FreelanceListChange(list));
     });
-    _jobOfferRepository.loadJobOffers();
+    _jobOfferRepository
+      ..loadJobOffers()
+      ..loadFreelanceProjects();
   }
 
   final JobOfferRepository _jobOfferRepository;

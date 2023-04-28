@@ -5,10 +5,18 @@ import 'package:fudeo_hackaton/onboarding/widget/proceed_button.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
+import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class OnboardingPage extends StatelessWidget {
-  const OnboardingPage({super.key});
+  OnboardingPage({
+    super.key,
+    required JobOfferRepository jobOfferRepository,
+  }) {
+    jobOfferRepository
+      ..loadJobOffers()
+      ..loadFreelanceProjects();
+  }
 
   @override
   Widget build(BuildContext context) {

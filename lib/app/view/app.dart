@@ -28,7 +28,11 @@ class App extends StatelessWidget {
         RepositoryProvider.value(value: _socialShareRepository),
         RepositoryProvider.value(value: _favouritesRepository)
       ],
-      child: const MaterialApp(home: OnboardingPage()),
+      child: MaterialApp(
+        home: OnboardingPage(
+          jobOfferRepository: _jobOfferRepository,
+        ),
+      ),
     );
   }
 }
