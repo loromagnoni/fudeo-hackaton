@@ -237,8 +237,13 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
             description: e.properties.description.richText.isEmpty
                 ? null
                 : e.properties.description.richText
-                    .map((el) => el.text.content)
-                    .join('\n'),
+                    .map(
+                      (el) => RichTextNode(
+                        plainText: el.plainText,
+                        annotations: el.annotations!,
+                      ).toHtml(),
+                    )
+                    .join(),
             applyUrl: e.properties.applicationProcess.richText.isEmpty
                 ? null
                 : e.properties.applicationProcess.richText.first.text.content,
@@ -248,17 +253,6 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
         .toList();
   }
 }
-
-// final String title;
-// final String id;
-// final bool nda;
-// final String workWith;
-// final String compensation;
-// final String? description;
-// final String? applyUrl;
-// final String? request;
-// final String? timeline;
-// final String? payment;
 
 extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
   List<Freelance> toFreelanceProjectList() {
@@ -271,19 +265,39 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
             workWith: e.properties.relationship.select?.name ?? '',
             compensation: e.properties.budget.richText.first.text.content,
             description: e.properties.description.richText
-                .map((el) => el.text.content)
-                .join('\n'),
+                .map(
+                  (el) => RichTextNode(
+                    plainText: el.plainText,
+                    annotations: el.annotations!,
+                  ).toHtml(),
+                )
+                .join(),
             applyUrl:
                 e.properties.applicationProcess.richText.first.text.content,
             request: e.properties.request.richText
-                .map((el) => el.text.content)
-                .join('\n'),
+                .map(
+                  (el) => RichTextNode(
+                    plainText: el.plainText,
+                    annotations: el.annotations!,
+                  ).toHtml(),
+                )
+                .join(),
             timeline: e.properties.schedule.richText
-                .map((el) => el.text.content)
-                .join('\n'),
+                .map(
+                  (el) => RichTextNode(
+                    plainText: el.plainText,
+                    annotations: el.annotations!,
+                  ).toHtml(),
+                )
+                .join(),
             payment: e.properties.paymentTiming.richText
-                .map((el) => el.text.content)
-                .join('\n'),
+                .map(
+                  (el) => RichTextNode(
+                    plainText: el.plainText,
+                    annotations: el.annotations!,
+                  ).toHtml(),
+                )
+                .join(),
             publishDate: DateTime.parse(e.properties.jobPosted.createdTime),
           ),
         )

@@ -95,6 +95,24 @@ class NotionPageRichTextField extends NotionPageField {
   final List<NotionPageText> richText;
 }
 
+class RichTextNode {
+  RichTextNode({required this.plainText, required this.annotations});
+
+  String toHtml() {
+    var htmlText = plainText;
+    if (annotations.bold) htmlText = '<b>$htmlText</b>';
+    if (annotations.italic) htmlText = '<i>$htmlText</i>';
+    if (annotations.strikethrough) htmlText = '<s>$htmlText</s>';
+    if (annotations.underline) htmlText = '<u>$htmlText</u>';
+    if (annotations.code) htmlText = '<tt>$htmlText</tt>';
+    if (annotations.color != 'default') htmlText = '<font color="${annotations.color}">$htmlText</font>';
+    return htmlText;
+  }
+
+  final String plainText;
+  final Annotations annotations;
+}
+
 class NotionPageUrlField extends NotionPageField {
   NotionPageUrlField.fromJson(super.json)
       : url = json['url'] as String?,
