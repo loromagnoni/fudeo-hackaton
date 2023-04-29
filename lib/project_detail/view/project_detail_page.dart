@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
 import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/view/favourite_checkbox.dart';
@@ -132,44 +133,44 @@ class _DescriptionSection extends StatelessWidget {
             const SizedBox(height: 8),
             const JobOfferDescriptionTitle(title: 'Descrizione progetto'),
             const SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                text: project.description,
-                style: AppFonts.jobDetailDescription,
-              ),
+            Html(
+              data: project.description,
+              style: {
+                'body': Style.fromTextStyle(AppFonts.jobDetailDescription),
+              },
             ),
           ],
           if (project.request != null) ...[
             const SizedBox(height: 8),
             const JobOfferDescriptionTitle(title: 'Richiesta di lavoro'),
             const SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                text: project.request,
-                style: AppFonts.jobDetailDescription,
-              ),
+            Html(
+              data: project.request,
+              style: {
+                'body': Style.fromTextStyle(AppFonts.jobDetailDescription),
+              },
             ),
           ],
           if (project.timeline != null) ...[
             const SizedBox(height: 8),
             const JobOfferDescriptionTitle(title: 'Tempistiche progetto'),
             const SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                text: project.timeline,
-                style: AppFonts.jobDetailDescription,
-              ),
+            Html(
+              data: project.timeline,
+              style: {
+                'body': Style.fromTextStyle(AppFonts.jobDetailDescription),
+              },
             ),
           ],
           if (project.payment != null) ...[
             const SizedBox(height: 8),
             const JobOfferDescriptionTitle(title: 'Tempistiche pagamento'),
             const SizedBox(height: 4),
-            RichText(
-              text: TextSpan(
-                text: project.payment,
-                style: AppFonts.jobDetailDescription,
-              ),
+            Html(
+              data: project.payment,
+              style: {
+                'body': Style.fromTextStyle(AppFonts.jobDetailDescription),
+              },
             ),
           ],
           const SizedBox(height: 92),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
 import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
 import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
@@ -98,12 +99,13 @@ class JobOfferDetailPage extends StatelessWidget {
                     ],
                   ),
                   if (jobOffer.description != null)
-                    RichText(
-                      text: TextSpan(
-                        text: jobOffer.description,
-                        style: AppFonts.jobDetailDescription,
-                      ),
-                    )
+                    Html(
+                      data: jobOffer.description,
+                      style: {
+                        'body':
+                            Style.fromTextStyle(AppFonts.jobDetailDescription),
+                      },
+                    ),
                 ],
               ),
             ),

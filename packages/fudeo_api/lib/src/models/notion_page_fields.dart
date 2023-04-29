@@ -99,13 +99,17 @@ class RichTextNode {
   RichTextNode({required this.plainText, required this.annotations});
 
   String toHtml() {
-    var htmlText = plainText;
+    var htmlText = plainText
+        .split('\n')
+        .join('<br>');
     if (annotations.bold) htmlText = '<b>$htmlText</b>';
     if (annotations.italic) htmlText = '<i>$htmlText</i>';
     if (annotations.strikethrough) htmlText = '<s>$htmlText</s>';
     if (annotations.underline) htmlText = '<u>$htmlText</u>';
     if (annotations.code) htmlText = '<tt>$htmlText</tt>';
-    if (annotations.color != 'default') htmlText = '<font color="${annotations.color}">$htmlText</font>';
+    if (annotations.color != 'default') {
+      htmlText = '<font color="${annotations.color}">$htmlText</font>';
+    }
     return htmlText;
   }
 

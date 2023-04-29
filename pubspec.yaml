@@ -14,7 +14,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
-  flutter_svg: ^2.0.5
+  flutter_html: ^2.2.1
+  flutter_svg: ^0.23.0+1
   fudeo_api:
     path: packages/fudeo_api
   job_offer_repository:
