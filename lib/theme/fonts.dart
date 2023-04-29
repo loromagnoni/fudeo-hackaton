@@ -220,4 +220,12 @@ class AppFonts {
     fontFamily: 'RedHat',
     height: 1.3,
   );
+
+  static const TextStyle jobDetailDescriptionTitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+    height: 1.3,
+  );
 }
