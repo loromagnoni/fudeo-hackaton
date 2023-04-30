@@ -34,20 +34,23 @@ class ShareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SocialShareBloc, SocialShareState>(
       bloc: context.read<SocialShareBloc>(),
-      builder: (context, state) => DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.sky),
-          borderRadius: BorderRadius.circular(99),
-        ),
-        child: IconButton(
-          icon: Icon(
-            PhosphorIcons.light.shareNetwork,
-            color: AppColors.sky,
+      builder: (context, state) => Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.sky),
+            borderRadius: BorderRadius.circular(99),
           ),
-          padding: const EdgeInsets.all(16),
-          onPressed: () => context
-              .read<SocialShareBloc>()
-              .add(const PressedSocialShareButton()),
+          child: IconButton(
+            icon: Icon(
+              PhosphorIcons.light.shareNetwork,
+              color: AppColors.sky,
+            ),
+            padding: const EdgeInsets.all(16),
+            onPressed: () => context
+                .read<SocialShareBloc>()
+                .add(const PressedSocialShareButton()),
+          ),
         ),
       ),
     );

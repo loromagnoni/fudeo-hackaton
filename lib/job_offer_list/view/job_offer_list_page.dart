@@ -18,6 +18,7 @@ class JobOfferListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
@@ -29,7 +30,7 @@ class JobOfferListPage extends StatelessWidget {
         ),
         title: const Text(
           'Annunci',
-          style: AppFonts.jobListAppBar,          
+          style: AppFonts.jobListAppBar,
         ),
         centerTitle: true,
         backgroundColor: AppColors.white,

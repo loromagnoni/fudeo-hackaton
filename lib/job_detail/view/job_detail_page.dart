@@ -185,6 +185,7 @@ class _HeaderSection extends StatelessWidget {
         CreatedDate(date: jobOffer.publishDate),
         const SizedBox(height: 14),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
               child: Text(

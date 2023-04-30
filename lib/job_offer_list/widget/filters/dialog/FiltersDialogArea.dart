@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/FilterItem.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/filter_group.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
@@ -39,17 +36,15 @@ class FiltersDialogArea extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Filtri',
                             style: AppFonts.filtersDialogTitle,
                           ),
-                          SizedBox(
-                            height: 12,
-                          ),
+                          const SizedBox(height: 12),
                           FilterGroup(
                             title: 'Team',
                             icon: PhosphorIcons.regular.users,
-                            filters: [
+                            filters: const [
                               Filter.fullRemote,
                               Filter.hybrid,
                               Filter.onSite,
@@ -58,7 +53,7 @@ class FiltersDialogArea extends StatelessWidget {
                           FilterGroup(
                             title: 'Seniority',
                             icon: PhosphorIcons.regular.code,
-                            filters: [
+                            filters: const [
                               Filter.junior,
                               Filter.mid,
                               Filter.senior,
@@ -67,14 +62,12 @@ class FiltersDialogArea extends StatelessWidget {
                           FilterGroup(
                             title: 'Contratto',
                             icon: PhosphorIcons.regular.clock,
-                            filters: [
+                            filters: const [
                               Filter.fullTime,
                               Filter.partTime,
                             ],
                           ),
-                          SizedBox(
-                            height: 12,
-                          ),
+                          const SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -82,16 +75,14 @@ class FiltersDialogArea extends StatelessWidget {
                                   onPressed: () =>
                                       BlocProvider.of<JobOfferListBloc>(context)
                                           .add(CancelFilterTap()),
-                                  child: Text('Annulla',
+                                  child: const Text('Annulla',
                                       style: AppFonts.filtersDialogButton)),
-                              SizedBox(
-                                width: 12,
-                              ),
+                              const SizedBox(width: 12),
                               TextButton(
                                   onPressed: () =>
                                       BlocProvider.of<JobOfferListBloc>(context)
                                           .add(ApplyFilterTap()),
-                                  child: Text('Applica',
+                                  child: const Text('Applica',
                                       style: AppFonts.filtersDialogButton))
                             ],
                           )

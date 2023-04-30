@@ -1,7 +1,7 @@
 import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fudeo_hackaton/home/home.dart';
 import 'package:fudeo_hackaton/onboarding/view/onboarding_page.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:social_share_repository/social_share_repository.dart';
@@ -22,6 +22,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsFlutterBinding.ensureInitialized();
+    SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+    );
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: _jobOfferRepository),
