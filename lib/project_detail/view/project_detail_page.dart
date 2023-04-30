@@ -21,6 +21,7 @@ class ProjectDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final project = context.read<JobOfferRepository>().getFreelanceById(id);
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -29,17 +30,33 @@ class ProjectDetailPage extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.light,
         ),
+        leadingWidth: 90,
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: const ActionButton(
-            child: Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.black,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.ultraLightGrey),
+                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.ultraLightGrey,
+                ),
+                child: Icon(
+                  PhosphorIcons.regular.caretLeft,
+                  color: AppColors.black,
+                ),
+              ),
             ),
           ),
         ),
         actions: [
-          FavouriteCheckboxAction(id: id),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: FavouriteCheckboxAction(id: id),
+          ),
         ],
       ),
       body: Stack(
@@ -48,6 +65,7 @@ class ProjectDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 50),
                 _HeaderSection(project: project),
                 _DescriptionSection(project: project)
               ],
@@ -104,7 +122,7 @@ class _HeaderSection extends StatelessWidget {
           height: 32,
         ),
         JobDetailInfoSubtitle(
-          text: project.nda ? 'Nda previsto' : 'Nda non previsto',
+          text: project.nda ? 'NDA previsto' : 'NDA non previsto',
           icon: PhosphorIcons.regular.warningDiamond,
         ),
         const SizedBox(height: 32),

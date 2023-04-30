@@ -76,13 +76,22 @@ class ItemCheckBoxAction extends StatelessWidget {
               const FavouriteCheckboxToggled(),
             ),
         borderRadius: BorderRadius.circular(8),
-        child: ActionButton(
-          child: Icon(
-            state.checked
-                ? PhosphorIcons.fill.bookmarkSimple
-                : PhosphorIcons.regular.bookmarkSimple,
-            size: 32,
-            color: AppColors.sky,
+        child: SizedBox(
+          width: 55,
+          height: 50,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.ultraLightGrey),
+              borderRadius: BorderRadius.circular(16),
+              color: AppColors.ultraLightGrey,
+            ),
+            child: Icon(
+              state.checked
+                  ? PhosphorIcons.fill.bookmarkSimple
+                  : PhosphorIcons.regular.bookmarkSimple,
+              size: 32,
+              color: AppColors.sky,
+            ),
           ),
         ),
       ),

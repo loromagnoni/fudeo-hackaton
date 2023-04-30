@@ -10,6 +10,7 @@ import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class JobOfferListPage extends StatelessWidget {
   const JobOfferListPage({super.key});
@@ -21,15 +22,16 @@ class JobOfferListPage extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back_ios_new,
+            PhosphorIcons.regular.caretLeft,
             color: AppColors.black,
           ),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(
+        title: const Text(
           'Annunci',
-          style: AppFonts.jobListAppBar,
+          style: AppFonts.jobListAppBar,          
         ),
+        centerTitle: true,
         backgroundColor: AppColors.white,
       ),
       body: BlocProvider(

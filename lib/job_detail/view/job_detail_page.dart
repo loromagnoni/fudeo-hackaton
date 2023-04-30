@@ -20,6 +20,7 @@ class JobOfferDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final jobOffer = context.read<JobOfferRepository>().getJobOfferById(id);
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -28,17 +29,33 @@ class JobOfferDetailPage extends StatelessWidget {
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.light,
         ),
+        leadingWidth: 90,
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
-          child: const ActionButton(
-            child: Icon(
-              Icons.arrow_back_ios_new,
-              color: AppColors.black,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.ultraLightGrey),
+                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.ultraLightGrey,
+                ),
+                child: Icon(
+                  PhosphorIcons.regular.caretLeft,
+                  color: AppColors.black,
+                ),
+              ),
             ),
           ),
         ),
         actions: [
-          FavouriteCheckboxAction(id: id),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: FavouriteCheckboxAction(id: id),
+          ),
         ],
       ),
       body: Stack(
@@ -47,6 +64,7 @@ class JobOfferDetailPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 50),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18),
                   child: _HeaderSection(jobOffer: jobOffer),
