@@ -75,23 +75,9 @@ android {
     }
 
     flavorDimensions "default"
-    productFlavors { 
-        production {
-            dimension "default"
-            applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Fudeo Hackaton"]
-        }
-        staging {
-            dimension "default"
-            applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Fudeo Hackaton"]
-        }
-        development {
-            dimension "default"
-            applicationIdSuffix ".dev"
-            manifestPlaceholders = [appName: "[DEV] Fudeo Hackaton"]
-        }
-    }
+    dimension "default"
+    applicationIdSuffix ""
+    manifestPlaceholders = [appName: "Fudeo Hackaton"]
 
     buildTypes {
         release {
