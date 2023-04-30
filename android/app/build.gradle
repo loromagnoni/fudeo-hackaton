@@ -74,11 +74,6 @@ android {
         }
     }
 
-    flavorDimensions "default"
-    dimension "default"
-    applicationIdSuffix ""
-    manifestPlaceholders = [appName: "Fudeo Hackaton"]
-
     buildTypes {
         release {
             signingConfig signingConfigs.release
