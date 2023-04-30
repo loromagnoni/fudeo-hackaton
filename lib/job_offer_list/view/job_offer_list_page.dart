@@ -6,7 +6,6 @@ import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/FiltersDialo
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/filters.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/no_results/no_results_message.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/opportunity_type_toggle.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
@@ -56,12 +55,18 @@ class JobOfferListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(32),
+      padding: const EdgeInsets.symmetric(vertical: 32),
       color: AppColors.white,
       child: Column(
-        children: [
-          OpportunityTypeToggle(),
-          Filters(),
+        children: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: OpportunityTypeToggle(),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Filters(),
+          ),
           Expanded(
             child: JobListView(),
           )
@@ -82,7 +87,11 @@ class JobListView extends StatelessWidget {
             ? ListView(
                 children: List.of(
                   state.filteredOpportunities.map(
-                    (o) => OpportunityCard(opportunity: o),
+                    (o) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 16),
+                      child: OpportunityCard(opportunity: o),
+                    ),
                   ),
                 ),
               )
