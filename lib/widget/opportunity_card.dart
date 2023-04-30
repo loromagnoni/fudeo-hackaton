@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/view/job_detail_page.dart';
+import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
-import 'package:fudeo_hackaton/project_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/theme/shadows.dart';

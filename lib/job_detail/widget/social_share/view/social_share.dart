@@ -7,20 +7,25 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:social_share_repository/social_share_repository.dart';
 
 class SocialShare extends StatelessWidget {
-  const SocialShare({required this.jobOfferId, super.key});
+  const SocialShare({
+    required this.jobOfferId,
+    required this.isFreelance,
+    super.key,
+  });
 
   final String jobOfferId;
+  final bool isFreelance;
 
   @override
   Widget build(BuildContext context) {
+    final jobOfferTitle = isFreelance
+        ? context.read<JobOfferRepository>().getFreelanceById(jobOfferId).title
+        : context.read<JobOfferRepository>().getJobOfferById(jobOfferId).title;
     return BlocProvider(
       create: (context) => SocialShareBloc(
         socialShareRepository: context.read<SocialShareRepository>(),
         jobOfferId: jobOfferId,
-        jobOfferTitle: context
-            .read<JobOfferRepository>()
-            .getJobOfferById(jobOfferId)
-            .title,
+        jobOfferTitle: jobOfferTitle,
       ),
       child: const ShareButton(),
     );

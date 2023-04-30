@@ -2,10 +2,8 @@ import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
-import 'package:fudeo_hackaton/project_detail/view/project_detail_page.dart';
+import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../../../theme/colors.dart';
 
 class FavouriteCheckbox extends StatelessWidget {
   const FavouriteCheckbox({super.key, required String id}) : _id = id;

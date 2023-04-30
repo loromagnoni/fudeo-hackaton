@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
 import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
+import 'package:fudeo_hackaton/job_detail/widget/job_detail_info.dart';
+import 'package:fudeo_hackaton/job_detail/widget/social_share/view/social_share.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/view/favourite_checkbox.dart';
-import 'package:fudeo_hackaton/project_detail/widget/job_detail_info.dart';
-import 'package:fudeo_hackaton/project_detail/widget/social_share/view/social_share.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
@@ -103,7 +103,10 @@ class _HeaderSection extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SocialShare(jobOfferId: project.id),
+            SocialShare(
+              jobOfferId: project.id,
+              isFreelance: true,
+            ),
           ],
         ),
         const SizedBox(height: 32),

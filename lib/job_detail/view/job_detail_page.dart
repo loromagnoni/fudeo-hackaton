@@ -195,7 +195,10 @@ class _HeaderSection extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            SocialShare(jobOfferId: jobOffer.id),
+            SocialShare(
+              jobOfferId: jobOffer.id,
+              isFreelance: false,
+            ),
           ],
         ),
         const SizedBox(height: 32),
