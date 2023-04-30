@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fudeo_hackaton/theme/buttons.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApplyButton extends StatelessWidget {
-  ApplyButton({super.key, this.url});
+  const ApplyButton({super.key, this.url});
 
-  String? url;
+  final String? url;
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +18,10 @@ class ApplyButton extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FilledButton(
-                onPressed: () {
-                  launchUrl(Uri.parse(url!));
-                },
-                child: Text('Candidati!'),
+              AppButton(
+                action: () => launchUrl(Uri.parse(url!)),
+                text: 'Candidati!',
+                iconData: PhosphorIcons.bold.confetti,
               ),
             ],
           ),
