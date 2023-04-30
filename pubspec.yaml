@@ -24,14 +24,15 @@ dependencies:
     path: packages/local_storage
   phosphor_flutter: ^2.0.0
   rxdart: ^0.27.4
+  sized_context: ^1.0.0+4
   social_share_repository:
     path: packages/social_share_repository
   timeago: ^3.4.0
   url_launcher: ^6.1.10
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.13.1
   bloc_test: ^9.1.1
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
