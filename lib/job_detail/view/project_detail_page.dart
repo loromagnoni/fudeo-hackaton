@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
 import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
+import 'package:fudeo_hackaton/job_detail/widget/detail_page_wrapper.dart';
 import 'package:fudeo_hackaton/job_detail/widget/job_detail_info.dart';
 import 'package:fudeo_hackaton/job_detail/widget/social_share/view/social_share.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/view/favourite_checkbox.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
@@ -20,60 +18,24 @@ class ProjectDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final project = context.read<JobOfferRepository>().getFreelanceById(id);
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.white,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.light,
-        ),
-        leadingWidth: 90,
-        leading: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.ultraLightGrey),
-                  borderRadius: BorderRadius.circular(16),
-                  color: AppColors.ultraLightGrey,
-                ),
-                child: Icon(
-                  PhosphorIcons.regular.caretLeft,
-                  color: AppColors.black,
-                ),
+    return DetailPageWrapper(
+      id: id,
+      applyUrl: project.applyUrl!,
+      children: [
+        Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _HeaderSection(project: project),
+                  _DescriptionSection(project: project)
+                ],
               ),
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: FavouriteCheckboxAction(id: id),
-          ),
-        ],
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 50),
-                _HeaderSection(project: project),
-                _DescriptionSection(project: project)
-              ],
-            ),
-          ),
-          ApplyButton(url: project.applyUrl),
-        ],
-      ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
@@ -90,46 +52,49 @@ class _HeaderSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CreatedDate(date: project.publishDate),
-        const SizedBox(height: 14),
-        Row(
-          children: [
-            Flexible(
-              child: Text(
-                project.title,
-                style: AppFonts.jobDetailTitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CreatedDate(date: project.publishDate),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  project.title,
+                  style: AppFonts.jobDetailTitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            SocialShare(
-              jobOfferId: project.id,
-              isFreelance: true,
-            ),
-          ],
-        ),
-        const SizedBox(height: 32),
-        JobDetailInfoSubtitle(
-          icon: PhosphorIcons.regular.buildings,
-          text: project.workWith,
-        ),
-        const Divider(
-          height: 32,
-        ),
-        JobDetailInfoSubtitle(
-          icon: PhosphorIcons.regular.currencyEur,
-          text: project.compensation,
-        ),
-        const Divider(
-          height: 32,
-        ),
-        JobDetailInfoSubtitle(
-          text: project.nda ? 'NDA previsto' : 'NDA non previsto',
-          icon: PhosphorIcons.regular.warningDiamond,
-        ),
-        const SizedBox(height: 32),
-      ]),
+              SocialShare(
+                jobOfferId: project.id,
+                isFreelance: true,
+              ),
+            ],
+          ),
+          const SizedBox(height: 32),
+          JobDetailInfoSubtitle(
+            icon: PhosphorIcons.regular.buildings,
+            text: project.workWith,
+          ),
+          const Divider(
+            height: 32,
+          ),
+          JobDetailInfoSubtitle(
+            icon: PhosphorIcons.regular.currencyEur,
+            text: project.compensation,
+          ),
+          const Divider(
+            height: 32,
+          ),
+          JobDetailInfoSubtitle(
+            text: project.nda ? 'NDA previsto' : 'NDA non previsto',
+            icon: PhosphorIcons.regular.warningDiamond,
+          ),
+          const SizedBox(height: 32),
+        ],
+      ),
     );
   }
 }

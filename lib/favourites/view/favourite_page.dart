@@ -1,7 +1,5 @@
 import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/favourites/bloc/favourites_bloc.dart';
 import 'package:fudeo_hackaton/favourites/widget/no_favourites_message.dart';
@@ -57,7 +55,13 @@ class FavouriteListView extends StatelessWidget {
             ? ListView(
                 children: List.of(
                   state.favouriteOpportunities.map(
-                    (o) => OpportunityCard(opportunity: o),
+                    (o) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16,
+                        horizontal: 16,
+                      ),
+                      child: OpportunityCard(opportunity: o),
+                    ),
                   ),
                 ),
               )

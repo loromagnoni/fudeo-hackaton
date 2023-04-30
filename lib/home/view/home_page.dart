@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/favourites/view/favourite_page.dart';
@@ -40,33 +39,6 @@ class HomeView extends StatelessWidget {
     final imageSize = usingSmallScreen ? width * 0.7 : width * 0.8;
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: AppColors.white,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.light,
-        ),
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: IconButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const FavouritePage(),
-                ),
-              ),
-              icon: Icon(
-                PhosphorIcons.regular.bookmarkSimple,
-                size: 28,
-                color: AppColors.black,
-              ),
-            ),
-          ),
-        ],
-        backgroundColor: AppColors.blueShadesLight,
-      ),
       body: ColoredBox(
         color: AppColors.white,
         child: SingleChildScrollView(
@@ -75,7 +47,7 @@ class HomeView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: AppColors.blueShadesLight,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(25),
@@ -88,6 +60,24 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: IconButton(
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const FavouritePage(),
+                              ),
+                            ),
+                            icon: Icon(
+                              PhosphorIcons.regular.bookmarkSimple,
+                              size: 28,
+                              color: AppColors.black,
+                            ),
+                          ),
+                        ),
+                      ),
                       const Text(
                         'Cosa cerchi?',
                         style: AppFonts.titleNav,
@@ -147,7 +137,7 @@ class HomeView extends StatelessWidget {
                                   opportunity: opportunity,
                                 ),
                               ),
-                            SizedBox(
+                            const SizedBox(
                               height: 48,
                             )
                           ],

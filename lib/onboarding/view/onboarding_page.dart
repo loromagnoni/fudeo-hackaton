@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fudeo_hackaton/home/home.dart';
 import 'package:fudeo_hackaton/onboarding/widget/proceed_button.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:sized_context/sized_context.dart';
 
 class OnboardingPage extends StatelessWidget {
@@ -26,10 +24,11 @@ class OnboardingPage extends StatelessWidget {
     final large = context.diagonalInches >= 7;
     final medium = context.diagonalInches >= 4 && context.diagonalInches < 7;
     final small = context.diagonalInches < 4;
-    final padding = large ? height * 0.06 : height * 0.04;
+    final padding = large ? 64.0 : 28.0;
     final imageSize = small ? width * 0.6 : width * 0.8;
 
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: Builder(
         builder: (context) {
           return Padding(
