@@ -48,6 +48,7 @@ class JobDetailInfoCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.lightGrey),
         borderRadius: BorderRadius.circular(16),
+        color: AppColors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.all(32),

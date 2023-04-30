@@ -32,87 +32,166 @@ class JobOfferDetailPage extends StatelessWidget {
           ),
         ),
         actions: [
-          FavouriteCheckbox(id: id),
+          FavouriteCheckboxAction(id: id),
         ],
       ),
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 32, 18, 180),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CreatedDate(date: jobOffer.publishDate),
-                  const SizedBox(height: 14),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          jobOffer.title,
-                          style: AppFonts.jobDetailTitle,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      SocialShare(jobOfferId: id),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                  JobDetailInfoSubtitle(
-                    icon: PhosphorIcons.regular.buildings,
-                    text: jobOffer.company,
-                  ),
-                  const SizedBox(height: 32),
-                  if (jobOffer.salary != null)
-                    JobDetailInfoSubtitle(
-                      icon: PhosphorIcons.regular.currencyEur,
-                      text: jobOffer.salary!,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: _HeaderSection(jobOffer: jobOffer),
+                ),
+                Stack(
+                  children: [
+                    _DescriptionSection(jobOffer: jobOffer),
+                    Positioned(
+                      top: 0,
+                      left: 18,
+                      right: 18,
+                      child: _InfoCards(jobOffer: jobOffer),
                     ),
-                  const SizedBox(height: 32),
-                  JobDetailInfoSubtitle(
-                    icon: PhosphorIcons.regular.mapPin,
-                    text: jobOffer.location,
-                  ),
-                  const SizedBox(height: 32),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      if (jobOffer.teamLocation != null)
-                        JobDetailInfoCard(
-                          text: stringFromTeamLocation(jobOffer.teamLocation),
-                          icon: PhosphorIcons.regular.coffee,
-                          filterText: 'Team',
-                        ),
-                      if (jobOffer.seniority != null)
-                        JobDetailInfoCard(
-                          text: stringFromSeniority(jobOffer.seniority!),
-                          icon: PhosphorIcons.regular.code,
-                          filterText: 'Seniority',
-                        ),
-                      if (jobOffer.contract != null)
-                        JobDetailInfoCard(
-                          text: stringFromContract(jobOffer.contract),
-                          icon: PhosphorIcons.regular.clock,
-                          filterText: 'Contratto',
-                        ),
-                    ],
-                  ),
-                  if (jobOffer.description != null)
-                    Html(
-                      data: jobOffer.description,
-                      style: {
-                        'body':
-                            Style.fromTextStyle(AppFonts.jobDetailDescription),
-                      },
-                    ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
           ApplyButton(url: jobOffer.applyUrl),
         ],
       ),
+    );
+  }
+}
+
+class _DescriptionSection extends StatelessWidget {
+  const _DescriptionSection({
+    super.key,
+    required this.jobOffer,
+  });
+
+  final JobOffer jobOffer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 64),
+      padding: const EdgeInsets.only(
+        top: 64,
+        left: 18,
+        right: 18,
+        bottom: 92,
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(32),
+          topRight: Radius.circular(32),
+        ),
+        color: AppColors.blueShadesLight,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 8),
+          const JobOfferDescriptionTitle(title: 'Descrizione'),
+          const SizedBox(height: 4),
+          Html(
+            data: jobOffer.description,
+            style: {
+              'body': Style.fromTextStyle(AppFonts.jobDetailDescription),
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoCards extends StatelessWidget {
+  const _InfoCards({
+    super.key,
+    required this.jobOffer,
+  });
+
+  final JobOffer jobOffer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        if (jobOffer.teamLocation != null)
+          JobDetailInfoCard(
+            text: stringFromTeamLocation(jobOffer.teamLocation),
+            icon: PhosphorIcons.regular.coffee,
+            filterText: 'Team',
+          ),
+        if (jobOffer.seniority != null)
+          JobDetailInfoCard(
+            text: stringFromSeniority(jobOffer.seniority!),
+            icon: PhosphorIcons.regular.code,
+            filterText: 'Seniority',
+          ),
+        if (jobOffer.contract != null)
+          JobDetailInfoCard(
+            text: stringFromContract(jobOffer.contract),
+            icon: PhosphorIcons.regular.clock,
+            filterText: 'Contratto',
+          ),
+      ],
+    );
+  }
+}
+
+class _HeaderSection extends StatelessWidget {
+  const _HeaderSection({
+    super.key,
+    required this.jobOffer,
+  });
+
+  final JobOffer jobOffer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CreatedDate(date: jobOffer.publishDate),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Flexible(
+              child: Text(
+                jobOffer.title,
+                style: AppFonts.jobDetailTitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            SocialShare(jobOfferId: jobOffer.id),
+          ],
+        ),
+        const SizedBox(height: 32),
+        JobDetailInfoSubtitle(
+          icon: PhosphorIcons.regular.buildings,
+          text: jobOffer.company,
+        ),
+        const Divider(height: 32),
+        if (jobOffer.salary != null) ...[
+          JobDetailInfoSubtitle(
+            icon: PhosphorIcons.regular.currencyEur,
+            text: jobOffer.salary!,
+          ),
+          const Divider(height: 32),
+        ],
+        JobDetailInfoSubtitle(
+          icon: PhosphorIcons.regular.mapPin,
+          text: jobOffer.location,
+        ),
+        const SizedBox(height: 32),
+      ],
     );
   }
 }
@@ -135,5 +214,19 @@ class ActionButton extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: child,
     );
+  }
+}
+
+class JobOfferDescriptionTitle extends StatelessWidget {
+  const JobOfferDescriptionTitle({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: AppFonts.jobDetailDescriptionTitle);
   }
 }
