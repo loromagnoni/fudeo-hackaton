@@ -76,23 +76,29 @@ class HomeView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          child: IconButton(
-                            onPressed: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => const FavouritePage(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Offertelavoroflutter.it',
+                            style: AppFonts.jobDetailDescriptionTitle,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            child: IconButton(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const FavouritePage(),
+                                ),
+                              ),
+                              icon: Icon(
+                                PhosphorIcons.regular.bookmarkSimple,
+                                size: 28,
+                                color: AppColors.black,
                               ),
                             ),
-                            icon: Icon(
-                              PhosphorIcons.regular.bookmarkSimple,
-                              size: 28,
-                              color: AppColors.black,
-                            ),
                           ),
-                        ),
+                        ],
                       ),
                       const Text(
                         'Cosa cerchi?',
