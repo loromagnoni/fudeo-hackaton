@@ -21,9 +21,13 @@ class JobDetailInfoSubtitle extends StatelessWidget {
           color: AppColors.greyDark,
         ),
         const SizedBox(width: 10),
-        Text(
-          text,
-          style: AppFonts.jobDetailInfoSubtitle,
+        Flexible(
+          child: Text(
+            text,
+            style: AppFonts.jobDetailInfoSubtitle,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
       ],
     );
