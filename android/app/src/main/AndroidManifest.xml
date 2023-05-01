@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.verygoodcore.fudeo_hackaton">
    <application
-        android:label="fudeo_hackaton"
+        android:label="OfferteFlutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
