@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
