@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/filter_item.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/filters_dialog/components/components.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class FilterGroup extends StatelessWidget {
   const FilterGroup({

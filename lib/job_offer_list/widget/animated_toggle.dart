@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class AnimatedToggle extends StatefulWidget {
   const AnimatedToggle({

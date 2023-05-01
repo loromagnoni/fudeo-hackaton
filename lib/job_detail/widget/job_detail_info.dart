@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:sized_context/sized_context.dart';
 
 class JobDetailInfoSubtitle extends StatelessWidget {
@@ -95,5 +94,19 @@ class JobDetailInfoCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class JobOfferDescriptionTitle extends StatelessWidget {
+  const JobOfferDescriptionTitle({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: AppFonts.jobDetailDescriptionTitle);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class AppFonts {
   static const TextStyle titleNav = TextStyle(

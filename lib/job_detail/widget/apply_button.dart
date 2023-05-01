@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/job_detail/dialog/application_process_dialog.dart';
-import 'package:fudeo_hackaton/theme/buttons.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 

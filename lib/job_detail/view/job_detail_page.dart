@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
-import 'package:fudeo_hackaton/job_detail/widget/detail_page_wrapper.dart';
 import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -169,40 +166,5 @@ class _HeaderSection extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ActionButton extends StatelessWidget {
-  const ActionButton({
-    super.key,
-    this.child,
-  });
-
-  final Widget? child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.ultraLightGrey,
-      ),
-      padding: const EdgeInsets.all(16),
-      child: child,
-    );
-  }
-}
-
-class JobOfferDescriptionTitle extends StatelessWidget {
-  const JobOfferDescriptionTitle({
-    super.key,
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(title, style: AppFonts.jobDetailDescriptionTitle);
   }
 }

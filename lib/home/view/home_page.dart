@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fudeo_hackaton/favourites/view/favourite_page.dart';
+import 'package:fudeo_hackaton/favourites/favourites.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
-import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';

@@ -1,8 +1,8 @@
 import 'package:favourites_repository/favourites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/favourite_checkbox/bloc/favourite_checkbox_bloc.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FavouriteCheckbox extends StatelessWidget {

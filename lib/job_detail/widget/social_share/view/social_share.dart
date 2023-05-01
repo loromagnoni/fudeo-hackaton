@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:fudeo_hackaton/job_detail/widget/social_share/bloc/social_share_bloc.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:social_share_repository/social_share_repository.dart';

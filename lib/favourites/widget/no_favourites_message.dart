@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class NoFavouritesMessage extends StatelessWidget {
   const NoFavouritesMessage({super.key});

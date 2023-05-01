@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fudeo_hackaton/onboarding/widget/proceed_button.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:sized_context/sized_context.dart';

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/animated_toggle.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class OpportunityTypeToggle extends StatelessWidget {
   const OpportunityTypeToggle({super.key});

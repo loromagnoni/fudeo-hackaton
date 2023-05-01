@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/job_detail/widget/apply_button.dart';
+import 'package:fudeo_hackaton/job_detail/widget/widget.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DetailPageWrapper extends StatelessWidget {

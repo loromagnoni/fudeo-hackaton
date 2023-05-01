@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/no_results/empty_filters.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:sized_context/sized_context.dart';
 
 class NoResultsMessage extends StatelessWidget {

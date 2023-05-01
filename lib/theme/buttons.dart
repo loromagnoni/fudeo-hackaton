@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({

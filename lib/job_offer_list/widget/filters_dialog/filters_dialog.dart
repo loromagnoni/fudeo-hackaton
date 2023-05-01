@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/filter_group.dart';
-import 'package:fudeo_hackaton/theme/buttons.dart';
-import 'package:fudeo_hackaton/theme/colors.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/filters_dialog/components/components.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class JobOfferListFilterDialog extends StatelessWidget {

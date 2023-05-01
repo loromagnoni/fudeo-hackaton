@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CreatedDate extends StatelessWidget {
