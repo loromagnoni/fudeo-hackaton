@@ -19,7 +19,8 @@ class JobOfferDetailPage extends StatelessWidget {
     final jobOffer = context.read<JobOfferRepository>().getJobOfferById(id);
     return DetailPageWrapper(
       id: id,
-      applyUrl: jobOffer.applyUrl!,
+      applyUrl: jobOffer.applyUrl,
+      applicationProcess: jobOffer.applicationProcess,
       children: [
         _HeaderSection(jobOffer: jobOffer),
         Stack(

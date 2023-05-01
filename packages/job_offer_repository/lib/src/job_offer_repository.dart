@@ -93,6 +93,7 @@ class JobOffer extends Equatable {
     this.salary,
     this.description,
     this.applyUrl,
+    this.applicationProcess,
     required this.publishDate,
   });
 
@@ -107,6 +108,7 @@ class JobOffer extends Equatable {
   final Seniority? seniority;
   final String? description;
   final String? applyUrl;
+  final String? applicationProcess;
 
   @override
   List<Object?> get props => [
@@ -121,6 +123,7 @@ class JobOffer extends Equatable {
         description,
         applyUrl,
         publishDate,
+        applicationProcess
       ];
 }
 
@@ -137,6 +140,7 @@ class Freelance extends Equatable {
     this.request,
     this.timeline,
     this.payment,
+    this.applicationProcess,
   });
 
   final String title;
@@ -150,6 +154,7 @@ class Freelance extends Equatable {
   final String? request;
   final String? timeline;
   final String? payment;
+  final String? applicationProcess;
 
   @override
   List<Object?> get props => [
@@ -163,7 +168,8 @@ class Freelance extends Equatable {
         applyUrl,
         request,
         timeline,
-        payment
+        payment,
+        applicationProcess
       ];
 }
 
@@ -244,9 +250,24 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
                       ).toHtml(),
                     )
                     .join(),
-            applyUrl: e.properties.applicationProcess.richText.isEmpty
+            applyUrl: e.properties.url.url ??
+                ((Uri.tryParse(e.properties.applicationProcess.richText.first
+                                .text.content)
+                            ?.isAbsolute ??
+                        false)
+                    ? e.properties.applicationProcess.richText.first.text
+                        .content
+                    : null),
+            applicationProcess: e.properties.applicationProcess.richText.isEmpty
                 ? null
-                : e.properties.applicationProcess.richText.first.text.content,
+                : e.properties.applicationProcess.richText
+                    .map(
+                      (e) => RichTextNode(
+                        plainText: e.plainText,
+                        annotations: e.annotations!,
+                      ).toHtml(),
+                    )
+                    .join(),
             publishDate: DateTime.parse(e.properties.jobPosted.createdTime),
           ),
         )
@@ -272,8 +293,22 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
                   ).toHtml(),
                 )
                 .join(),
-            applyUrl:
-                e.properties.applicationProcess.richText.first.text.content,
+            applyUrl: (Uri.tryParse(e.properties.applicationProcess.richText
+                            .first.text.content)
+                        ?.isAbsolute ??
+                    false)
+                ? e.properties.applicationProcess.richText.first.text.content
+                : null,
+            applicationProcess: e.properties.applicationProcess.richText.isEmpty
+                ? null
+                : e.properties.applicationProcess.richText
+                    .map(
+                      (e) => RichTextNode(
+                        plainText: e.plainText,
+                        annotations: e.annotations!,
+                      ).toHtml(),
+                    )
+                    .join(),
             request: e.properties.request.richText
                 .map(
                   (el) => RichTextNode(

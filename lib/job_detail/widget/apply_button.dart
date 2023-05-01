@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fudeo_hackaton/job_detail/dialog/application_process_dialog.dart';
 import 'package:fudeo_hackaton/theme/buttons.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ApplyButton extends StatelessWidget {
-  const ApplyButton({super.key, this.url});
+  const ApplyButton({super.key, this.url, this.applicationProcess});
 
   final String? url;
+  final String? applicationProcess;
 
   @override
   Widget build(BuildContext context) {
-    if (url == null) return Container();
+    if (url == null && applicationProcess == null) return Container();
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -19,7 +21,7 @@ class ApplyButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               AppButton(
-                action: () => launchUrl(Uri.parse(url!)),
+                action: () => _onApply(context),
                 text: 'Candidati!',
                 iconData: PhosphorIcons.bold.confetti,
               ),
@@ -28,5 +30,13 @@ class ApplyButton extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _onApply(BuildContext context) async {
+    if (url != null) {
+      await launchUrl(Uri.parse(url!));
+    } else if (applicationProcess != null) {
+      await ApplicationProcessDialog.show(context, applicationProcess!);
+    }
   }
 }

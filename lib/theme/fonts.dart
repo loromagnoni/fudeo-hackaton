@@ -228,4 +228,20 @@ class AppFonts {
     fontFamily: 'RedHat',
     height: 1.3,
   );
+
+  static const TextStyle applicationProcessDialogTitle = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w700,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+    height: 1.3,
+  );
+
+  static const TextStyle applicationProcessDialogSubtitle = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontFamily: 'RedHat',
+    height: 1.3,
+  );
 }

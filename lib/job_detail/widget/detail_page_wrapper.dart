@@ -9,12 +9,14 @@ class DetailPageWrapper extends StatelessWidget {
     required this.children,
     required this.id,
     required this.applyUrl,
+    required this.applicationProcess,
     super.key,
   });
 
   final List<Widget> children;
   final String id;
-  final String applyUrl;
+  final String? applyUrl;
+  final String? applicationProcess;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +66,7 @@ class DetailPageWrapper extends StatelessWidget {
                 ],
               ),
             ),
-            ApplyButton(url: applyUrl),
+            ApplyButton(url: applyUrl, applicationProcess: applicationProcess),
           ],
         ),
       ),

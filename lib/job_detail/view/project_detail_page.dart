@@ -20,7 +20,8 @@ class ProjectDetailPage extends StatelessWidget {
     final project = context.read<JobOfferRepository>().getFreelanceById(id);
     return DetailPageWrapper(
       id: id,
-      applyUrl: project.applyUrl!,
+      applyUrl: project.applyUrl,
+      applicationProcess: project.applicationProcess,
       children: [
         Stack(
           children: [
