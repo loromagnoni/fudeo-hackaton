@@ -12,13 +12,16 @@ part 'job_offer_list_event.dart';
 part 'job_offer_list_state.dart';
 
 typedef OpenJobOfferCallback = void Function(JobOffer jobOffer);
+typedef OpenFreelanceCallback = void Function(Freelance freelance);
 
 class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   JobOfferListBloc({
     required JobOfferRepository jobOfferRepository,
     required OpenJobOfferCallback openJobOfferDetailPage,
+    required OpenFreelanceCallback openFreelanceDetailPage,
   })  : _jobOfferRepository = jobOfferRepository,
         _openJobOfferDetailPageCallback = openJobOfferDetailPage,
+        _openFreelanceDetailPageCallback = openFreelanceDetailPage,
         super(
           const JobOfferListInitial(
             [],
@@ -38,6 +41,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     on<ApplyFilterTap>(_handleApplyFilterTap);
     on<FilterChipTap>(_handleFilterChipTap);
     on<EmptyFilterTap>(_handleEmptyFilterTap);
+    on<OpportunityTap>(_handleOpportunityTap);
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
@@ -54,6 +58,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   late StreamSubscription<List<JobOffer>> _jobOfferListSubscription;
   late StreamSubscription<List<Freelance>> _freelanceListSubscription;
   final OpenJobOfferCallback _openJobOfferDetailPageCallback;
+  final OpenFreelanceCallback _openFreelanceDetailPageCallback;
 
   void _handleFreelanceListChange(
     FreelanceListChange event,
@@ -229,5 +234,18 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         const OpportunityFilter(),
       ),
     );
+  }
+
+  void _handleOpportunityTap(
+      OpportunityTap event, Emitter<JobOfferListState> emit) {
+    final id = event.opportunity.id;
+    final isJobOffer = state.jobOfferList.any((j) => j.id == id);
+    if (isJobOffer) {
+      _openJobOfferDetailPageCallback(
+          state.jobOfferList.firstWhere((j) => j.id == id));
+    } else {
+      _openFreelanceDetailPageCallback(
+          state.freelanceList.firstWhere((f) => f.id == id));
+    }
   }
 }

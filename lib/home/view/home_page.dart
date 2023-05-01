@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/favourites/view/favourite_page.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
 import 'package:fudeo_hackaton/home/widget/opportunity_shimmer_card.dart';
+import 'package:fudeo_hackaton/job_detail/job_detail.dart';
+import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
@@ -19,6 +21,20 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (context) => HomeBloc(
         jobOfferRepository: context.read<JobOfferRepository>(),
+        openFreelanceDetailPage: (project) => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => ProjectDetailPage(
+              project: project,
+            ),
+          ),
+        ),
+        openJobOfferDetailPage: (jobOffer) => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => JobOfferDetailPage(
+              jobOffer: jobOffer,
+            ),
+          ),
+        ),
       ),
       child: const HomeView(),
     );
@@ -124,6 +140,7 @@ class HomeView extends StatelessWidget {
                     const SizedBox(height: 4),
                     BlocBuilder<HomeBloc, HomeState>(
                       builder: (context, state) {
+                        final bloc = context.read<HomeBloc>();
                         if (state is! HomeSuccess) {
                           return const LoadingListShimmers();
                         }
@@ -135,6 +152,8 @@ class HomeView extends StatelessWidget {
                                     const EdgeInsets.symmetric(vertical: 16),
                                 child: OpportunityCard(
                                   opportunity: opportunity,
+                                  onTap: () =>
+                                      bloc.add(HomeOpportunityTap(opportunity)),
                                 ),
                               ),
                             const SizedBox(

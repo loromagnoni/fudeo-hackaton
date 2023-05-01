@@ -71,3 +71,12 @@ class FilterChipTap extends JobOfferListEvent {
 }
 
 class EmptyFilterTap extends JobOfferListEvent {}
+
+class OpportunityTap extends JobOfferListEvent {
+  const OpportunityTap(this.opportunity);
+
+  final Opportunity opportunity;
+
+  @override
+  List<Object> get props => [opportunity];
+}

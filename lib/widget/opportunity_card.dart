@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/job_detail/view/job_detail_page.dart';
-import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
@@ -12,26 +10,16 @@ class OpportunityCard extends StatelessWidget {
   const OpportunityCard({
     super.key,
     required this.opportunity,
+    required this.onTap,
   });
 
   final Opportunity opportunity;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (context) => opportunity.type == OpportunityType.jobOffer
-                ? JobOfferDetailPage(
-                    id: opportunity.id,
-                  )
-                : ProjectDetailPage(
-                    id: opportunity.id,
-                  ),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Ink(
         child: Container(
           decoration: BoxDecoration(
