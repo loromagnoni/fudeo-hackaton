@@ -93,7 +93,6 @@ class JobOfferListFilterDialog extends StatelessWidget {
       constraints: BoxConstraints(
         maxHeight: size.height * 0.9,
       ),
-      isDismissible: false,
       context: context,
       builder: (context) =>
           BlocProvider.value(value: bloc, child: JobOfferListFilterDialog()),
