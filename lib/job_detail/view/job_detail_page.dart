@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:fudeo_hackaton/job_detail/widget/created_date.dart';
 import 'package:fudeo_hackaton/job_detail/widget/detail_page_wrapper.dart';
@@ -10,15 +9,14 @@ import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class JobOfferDetailPage extends StatelessWidget {
-  const JobOfferDetailPage({super.key, required this.id});
+  const JobOfferDetailPage({super.key, required this.jobOffer});
 
-  final String id;
+  final JobOffer jobOffer;
 
   @override
   Widget build(BuildContext context) {
-    final jobOffer = context.read<JobOfferRepository>().getJobOfferById(id);
     return DetailPageWrapper(
-      id: id,
+      id: jobOffer.id,
       applyUrl: jobOffer.applyUrl,
       applicationProcess: jobOffer.applicationProcess,
       children: [

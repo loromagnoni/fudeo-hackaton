@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
+import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/FiltersDialogArea.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/filters.dart';
@@ -41,7 +42,14 @@ class JobOfferListPage extends StatelessWidget {
           openJobOfferDetailPage: (jobOffer) => Navigator.of(context).push(
             MaterialPageRoute<void>(
               builder: (context) => JobOfferDetailPage(
-                id: jobOffer.id,
+                jobOffer: jobOffer,
+              ),
+            ),
+          ),
+          openFreelanceDetailPage: (project) => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (context) => ProjectDetailPage(
+                project: project,
               ),
             ),
           ),
@@ -84,6 +92,7 @@ class JobListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<JobOfferListBloc>();
     return FiltersDialogArea(
       child: BlocBuilder<JobOfferListBloc, JobOfferListState>(
         builder: (context, state) => state.filteredOpportunities.isNotEmpty
@@ -93,7 +102,10 @@ class JobListView extends StatelessWidget {
                     (o) => Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 16),
-                      child: OpportunityCard(opportunity: o),
+                      child: OpportunityCard(
+                        opportunity: o,
+                        onTap: () => bloc.add(OpportunityTap(o)),
+                      ),
                     ),
                   ),
                 ),

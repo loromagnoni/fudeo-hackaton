@@ -21,3 +21,12 @@ class HomeFreelanceProjectsChanged extends HomeEvent {
   @override
   List<Object> get props => [freelanceProjects];
 }
+
+class HomeOpportunityTap extends HomeEvent {
+  const HomeOpportunityTap(this.opportunity);
+
+  final Opportunity opportunity;
+
+  @override
+  List<Object> get props => [opportunity];
+}

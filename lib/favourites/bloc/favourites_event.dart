@@ -33,3 +33,12 @@ class FavouriteListChange extends FavouritesEvent {
   @override
   List<Object> get props => [favouriteList];
 }
+
+class FavoriteTap extends FavouritesEvent {
+  const FavoriteTap(this.opportunity);
+
+  final Opportunity opportunity;
+
+  @override
+  List<Object> get props => [opportunity];
+}

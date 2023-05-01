@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/favourites/bloc/favourites_bloc.dart';
 import 'package:fudeo_hackaton/favourites/widget/no_favourites_message.dart';
+import 'package:fudeo_hackaton/job_detail/job_detail.dart';
+import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
@@ -35,6 +37,20 @@ class FavouritePage extends StatelessWidget {
         create: (context) => FavouritesBloc(
           jobOfferRepository: context.read<JobOfferRepository>(),
           favouritesRepository: context.read<FavouritesRepository>(),
+          openFreelanceCallback: (project) => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (context) => ProjectDetailPage(
+                project: project,
+              ),
+            ),
+          ),
+          openJobOfferCallback: (jobOffer) => Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (context) => JobOfferDetailPage(
+                jobOffer: jobOffer,
+              ),
+            ),
+          ),
         ),
         child: const FavouriteListView(),
       ),
@@ -47,6 +63,7 @@ class FavouriteListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<FavouritesBloc>();
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
       color: AppColors.white,
@@ -60,7 +77,10 @@ class FavouriteListView extends StatelessWidget {
                         vertical: 16,
                         horizontal: 16,
                       ),
-                      child: OpportunityCard(opportunity: o),
+                      child: OpportunityCard(
+                        opportunity: o,
+                        onTap: () => bloc.add(FavoriteTap(o)),
+                      ),
                     ),
                   ),
                 ),
