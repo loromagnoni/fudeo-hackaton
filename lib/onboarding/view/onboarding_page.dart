@@ -6,6 +6,7 @@ import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:fudeo_hackaton/widget/conditional_flex_fit.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
 import 'package:sized_context/sized_context.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingPage extends StatelessWidget {
   OnboardingPage({
@@ -59,15 +60,22 @@ class OnboardingPage extends StatelessWidget {
                           ConditionalFlexFit(
                             wrapWithFlexFit: smallScreen,
                             child: Column(
-                              children: const [
-                                Text(
+                              children: [
+                                const Text(
                                   'I migliori annunci di lavoro in Flutter \nselezionati per te da',
                                   textAlign: TextAlign.center,
                                   style: AppFonts.onboardingSubTitle,
                                 ),
-                                Text(
-                                  'Offertedilavoroflutter.it',
-                                  style: AppFonts.onboardingLink,
+                                GestureDetector(
+                                  onTap: () => launchUrl(
+                                    Uri.parse(
+                                      'https://offertelavoroflutter.it/',
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Offertelavoroflutter.it',
+                                    style: AppFonts.onboardingLink,
+                                  ),
                                 ),
                               ],
                             ),
