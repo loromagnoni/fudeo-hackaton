@@ -78,16 +78,11 @@ class _HeaderSection extends StatelessWidget {
           JobDetailInfoSubtitle(
             icon: PhosphorIcons.regular.buildings,
             text: project.workWith,
-          ),
-          const Divider(
-            height: 32,
+            addDividerAbove: false,
           ),
           JobDetailInfoSubtitle(
             icon: PhosphorIcons.regular.currencyEur,
             text: project.compensation,
-          ),
-          const Divider(
-            height: 32,
           ),
           JobDetailInfoSubtitle(
             text: project.nda ? 'NDA previsto' : 'NDA non previsto',

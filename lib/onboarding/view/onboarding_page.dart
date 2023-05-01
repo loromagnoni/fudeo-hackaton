@@ -19,13 +19,11 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final large = context.diagonalInches >= 7;
-    final medium = context.diagonalInches >= 4 && context.diagonalInches < 7;
-    final small = context.diagonalInches < 4;
-    final padding = large ? 64.0 : 28.0;
-    final imageSize = small ? width * 0.6 : width * 0.8;
+    final largeScreen = context.diagonalInches >= 7;
+    final smallScreen = context.diagonalInches < 4;
+    final padding = largeScreen ? 64.0 : 28.0;
+    final imageSize = smallScreen ? width * 0.6 : width * 0.8;
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -51,7 +49,7 @@ class OnboardingPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ConditionalFlexFit(
-                            wrapWithFlexFit: small,
+                            wrapWithFlexFit: smallScreen,
                             child: const Text(
                               'Trova il tuo \nprossimo \nlavoro',
                               style: AppFonts.onboardingTitle,
@@ -59,7 +57,7 @@ class OnboardingPage extends StatelessWidget {
                             ),
                           ),
                           ConditionalFlexFit(
-                            wrapWithFlexFit: small,
+                            wrapWithFlexFit: smallScreen,
                             child: Column(
                               children: const [
                                 Text(
@@ -75,7 +73,7 @@ class OnboardingPage extends StatelessWidget {
                             ),
                           ),
                           ConditionalFlexFit(
-                            wrapWithFlexFit: small,
+                            wrapWithFlexFit: smallScreen,
                             child: const ProceedButton(),
                           ),
                         ],

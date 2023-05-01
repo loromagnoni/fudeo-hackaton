@@ -50,9 +50,7 @@ class OpportunityCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 4,
-                        ),
+                        const SizedBox(height: 4),
                         Text(
                           opportunity.title,
                           style: AppFonts.homeOpportunityCardTitle,
@@ -80,9 +78,7 @@ class OpportunityCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    width: 8,
-                  ),
+                  const SizedBox(width: 8),
                   FavouriteCheckbox(
                     id: opportunity.id,
                   ),
@@ -93,20 +89,22 @@ class OpportunityCard extends StatelessWidget {
                 spacing: 8,
                 children: [
                   for (var feature in opportunity.features)
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGrey,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        feature,
-                        style: AppFonts.homeOpportunityCardTag,
-                      ),
-                    )
+                    feature == ''
+                        ? Container()
+                        : Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.lightGrey,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Text(
+                              feature,
+                              style: AppFonts.homeOpportunityCardTag,
+                            ),
+                          )
                 ],
               )
             ],

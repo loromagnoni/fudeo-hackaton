@@ -1,33 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
+import 'package:sized_context/sized_context.dart';
 
 class JobDetailInfoSubtitle extends StatelessWidget {
   const JobDetailInfoSubtitle({
     required this.icon,
     required this.text,
+    this.addDividerAbove = true,
     super.key,
   });
 
   final IconData icon;
   final String text;
+  final bool addDividerAbove;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Icon(
-          icon,
-          color: AppColors.greyDark,
-        ),
-        const SizedBox(width: 10),
-        Flexible(
-          child: Text(
-            text,
-            style: AppFonts.jobDetailInfoSubtitle,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
+        if (addDividerAbove)
+          const Divider(
+            height: 32,
+            thickness: 1,
+            color: AppColors.lightGrey,
           ),
+        Row(
+          children: [
+            Icon(
+              icon,
+              color: AppColors.greyDark,
+            ),
+            const SizedBox(width: 10),
+            Flexible(
+              child: Text(
+                text,
+                style: AppFonts.jobDetailInfoSubtitle,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -48,26 +61,37 @@ class JobDetailInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.lightGrey),
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          children: [
-            Text(text, style: AppFonts.jobDetailInfoCard),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(icon, size: 12, color: AppColors.sky),
-                const SizedBox(width: 6),
-                Text(filterText, style: AppFonts.jobDetailInfoCardFilter),
-              ],
-            )
-          ],
+    final smallScreen = context.diagonalInches < 5;
+    final horizontalPadding = smallScreen
+        ? 16.0
+        : text == 'Full Remote'
+            ? 16.0
+            : 32.0;
+    return SizedBox(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.lightGrey),
+          borderRadius: BorderRadius.circular(16),
+          color: AppColors.white,
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 32,
+            horizontal: horizontalPadding,
+          ),
+          child: Column(
+            children: [
+              Text(text, style: AppFonts.jobDetailInfoCard),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(icon, size: 12, color: AppColors.sky),
+                  const SizedBox(width: 6),
+                  Text(filterText, style: AppFonts.jobDetailInfoCardFilter),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

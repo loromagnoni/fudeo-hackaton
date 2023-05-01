@@ -153,19 +153,20 @@ class _HeaderSection extends StatelessWidget {
           JobDetailInfoSubtitle(
             icon: PhosphorIcons.regular.buildings,
             text: jobOffer.company,
+            addDividerAbove: false,
           ),
-          const Divider(height: 32),
           if (jobOffer.salary != null) ...[
             JobDetailInfoSubtitle(
               icon: PhosphorIcons.regular.currencyEur,
               text: jobOffer.salary!,
             ),
-            const Divider(height: 32),
           ],
-          JobDetailInfoSubtitle(
-            icon: PhosphorIcons.regular.mapPin,
-            text: jobOffer.location,
-          ),
+          if (jobOffer.location != '') ...[
+            JobDetailInfoSubtitle(
+              icon: PhosphorIcons.regular.mapPin,
+              text: jobOffer.location,
+            ),
+          ],
           const SizedBox(height: 32),
         ],
       ),
