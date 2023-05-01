@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/active_filters.dart';
@@ -26,6 +24,7 @@ class Filters extends StatelessWidget {
               ),
               BlocBuilder<JobOfferListBloc, JobOfferListState>(
                 builder: (context, state) {
+                  final bloc = BlocProvider.of<JobOfferListBloc>(context);
                   return Visibility(
                     visible: state.selectedType == OpportunityType.jobOffer,
                     child: Stack(

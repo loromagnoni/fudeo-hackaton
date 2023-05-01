@@ -13,15 +13,18 @@ part 'job_offer_list_state.dart';
 
 typedef OpenJobOfferCallback = void Function(JobOffer jobOffer);
 typedef OpenFreelanceCallback = void Function(Freelance freelance);
+typedef OpenFilterDialogCallback = Future<void> Function(JobOfferListBloc self);
 
 class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   JobOfferListBloc({
     required JobOfferRepository jobOfferRepository,
     required OpenJobOfferCallback openJobOfferDetailPage,
     required OpenFreelanceCallback openFreelanceDetailPage,
+    required OpenFilterDialogCallback openFilterDialog,
   })  : _jobOfferRepository = jobOfferRepository,
         _openJobOfferDetailPageCallback = openJobOfferDetailPage,
         _openFreelanceDetailPageCallback = openFreelanceDetailPage,
+        _openFilterDialogCallback = openFilterDialog,
         super(
           const JobOfferListInitial(
             [],
@@ -59,6 +62,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   late StreamSubscription<List<Freelance>> _freelanceListSubscription;
   final OpenJobOfferCallback _openJobOfferDetailPageCallback;
   final OpenFreelanceCallback _openFreelanceDetailPageCallback;
+  final OpenFilterDialogCallback _openFilterDialogCallback;
 
   void _handleFreelanceListChange(
     FreelanceListChange event,
@@ -129,10 +133,10 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     _openJobOfferDetailPageCallback(event.jobOffer);
   }
 
-  void _handleOpportunityFilterTap(
+  Future<void> _handleOpportunityFilterTap(
     OpportunityFilterTap event,
     Emitter<JobOfferListState> emit,
-  ) {
+  ) async {
     emit(
       state is JobOfferListFilled
           ? OpportunityFilterEditing(
@@ -150,6 +154,9 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
                   state.filter,
                 )
               : state,
+    );
+    await _openFilterDialogCallback(
+      this,
     );
   }
 

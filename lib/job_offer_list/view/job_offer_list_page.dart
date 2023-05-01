@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_detail/job_detail.dart';
 import 'package:fudeo_hackaton/job_detail/view/project_detail_page.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/FiltersDialogArea.dart';
+import 'package:fudeo_hackaton/job_offer_list/dialog/job_offer_list_filter_dialog.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/filters/filters.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/no_results/no_results_message.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/opportunity_type_toggle.dart';
@@ -53,6 +53,10 @@ class JobOfferListPage extends StatelessWidget {
               ),
             ),
           ),
+          openFilterDialog: (bloc) => JobOfferListFilterDialog.show(
+            context,
+            bloc,
+          ),
         ),
         child: const JobOfferListView(),
       ),
@@ -93,29 +97,23 @@ class JobListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<JobOfferListBloc>();
-    return FiltersDialogArea(
-      child: BlocBuilder<JobOfferListBloc, JobOfferListState>(
-        builder: (context, state) => state.filteredOpportunities.isNotEmpty
-            ? ListView(
-                children: List.of(
-                  state.filteredOpportunities.map(
-                    (o) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16.0, horizontal: 16),
-                      child: OpportunityCard(
-                        opportunity: o,
-                        onTap: () => bloc.add(OpportunityTap(o)),
-                      ),
+    return BlocBuilder<JobOfferListBloc, JobOfferListState>(
+      builder: (context, state) => state.filteredOpportunities.isNotEmpty
+          ? ListView(
+              children: List.of(
+                state.filteredOpportunities.map(
+                  (o) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16.0, horizontal: 16),
+                    child: OpportunityCard(
+                      opportunity: o,
+                      onTap: () => bloc.add(OpportunityTap(o)),
                     ),
                   ),
                 ),
-              )
-            : const NoResultsMessage(),
-      ),
+              ),
+            )
+          : const NoResultsMessage(),
     );
-  }
-
-  void _onJobOfferTap(BuildContext context, JobOffer e) {
-    BlocProvider.of<JobOfferListBloc>(context).add(JobOfferListTap(e));
   }
 }
