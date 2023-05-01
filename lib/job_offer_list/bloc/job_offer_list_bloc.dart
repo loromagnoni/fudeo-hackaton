@@ -31,6 +31,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
             [],
             OpportunityType.jobOffer,
             OpportunityFilter(),
+            OpportunityFilter(),
           ),
         ) {
     on<JobOfferListChange>(_handleJobOfferListChange);
@@ -69,12 +70,8 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     Emitter<JobOfferListState> emit,
   ) {
     emit(
-      JobOfferListFilled(
-        state.jobOfferList,
-        event.freelanceList,
-        state.selectedType,
-        state.filter,
-      ),
+      JobOfferListFilled(state.jobOfferList, event.freelanceList,
+          state.selectedType, state.filter, state.filterToApply),
     );
   }
 
@@ -87,6 +84,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
       state.freelanceList,
       state.selectedType,
       state.filter,
+      state.filterToApply,
     ));
   }
 
@@ -102,6 +100,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
             ? OpportunityType.freelanceProject
             : OpportunityType.jobOffer,
         state.filter,
+        state.filterToApply,
       ),
     );
   }
@@ -112,11 +111,11 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
   ) {
     emit(
       JobOfferListFilled(
-        state.jobOfferList,
-        state.freelanceList,
-        state.selectedType,
-        state.filter.copyWith(title: event.searchText),
-      ),
+          state.jobOfferList,
+          state.freelanceList,
+          state.selectedType,
+          state.filter.copyWith(title: event.searchText),
+          state.filterToApply),
     );
   }
 
@@ -137,24 +136,8 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     OpportunityFilterTap event,
     Emitter<JobOfferListState> emit,
   ) async {
-    emit(
-      state is JobOfferListFilled
-          ? OpportunityFilterEditing(
-              state.jobOfferList,
-              state.freelanceList,
-              state.selectedType,
-              state.filter,
-              filterToApply: state.filter,
-            )
-          : state is OpportunityFilterEditing
-              ? JobOfferListFilled(
-                  state.jobOfferList,
-                  state.freelanceList,
-                  state.selectedType,
-                  state.filter,
-                )
-              : state,
-    );
+    emit(JobOfferListFilled(state.jobOfferList, state.freelanceList,
+        state.selectedType, state.filter, state.filterToApply));
     await _openFilterDialogCallback(
       this,
     );
@@ -164,32 +147,26 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     CancelFilterTap event,
     Emitter<JobOfferListState> emit,
   ) {
-    emit(
-      state is OpportunityFilterEditing
-          ? JobOfferListFilled(
-              state.jobOfferList,
-              state.freelanceList,
-              state.selectedType,
-              state.filter,
-            )
-          : state,
-    );
+    emit(JobOfferListFilled(
+      state.jobOfferList,
+      state.freelanceList,
+      state.selectedType,
+      state.filter,
+      const OpportunityFilter(),
+    ));
   }
 
   void _handleApplyFilterTap(
     ApplyFilterTap event,
     Emitter<JobOfferListState> emit,
   ) {
-    emit(
-      state is OpportunityFilterEditing
-          ? JobOfferListFilled(
-              state.jobOfferList,
-              state.freelanceList,
-              state.selectedType,
-              (state as OpportunityFilterEditing).filterToApply,
-            )
-          : state,
-    );
+    emit(JobOfferListFilled(
+      state.jobOfferList,
+      state.freelanceList,
+      state.selectedType,
+      state.filterToApply,
+      state.filterToApply,
+    ));
   }
 
   void _handleFilterTap(
@@ -197,19 +174,15 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     Emitter<JobOfferListState> emit,
   ) {
     emit(
-      state is OpportunityFilterEditing
-          ? OpportunityFilterEditing(
-              state.jobOfferList,
-              state.freelanceList,
-              state.selectedType,
-              state.filter,
-              filterToApply: (state as OpportunityFilterEditing)
-                  .filterToApply
-                  .toggleFilter(
-                    event.filter,
-                  ),
-            )
-          : state,
+      JobOfferListFilled(
+        state.jobOfferList,
+        state.freelanceList,
+        state.selectedType,
+        state.filter,
+        state.filterToApply.toggleFilter(
+          event.filter,
+        ),
+      ),
     );
   }
 
@@ -217,14 +190,15 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
     FilterChipTap event,
     Emitter<JobOfferListState> emit,
   ) {
+    final newFilter = state.filter.copyWith(
+        filters: state.filter.filters.where((f) => f != event.filter).toList());
     emit(
       JobOfferListFilled(
         state.jobOfferList,
         state.freelanceList,
         state.selectedType,
-        state.filter.copyWith(
-            filters:
-                state.filter.filters.where((f) => f != event.filter).toList()),
+        newFilter,
+        newFilter,
       ),
     );
   }
@@ -238,6 +212,7 @@ class JobOfferListBloc extends Bloc<JobOfferListEvent, JobOfferListState> {
         state.jobOfferList,
         state.freelanceList,
         state.selectedType,
+        const OpportunityFilter(),
         const OpportunityFilter(),
       ),
     );

@@ -31,9 +31,7 @@ class Filters extends StatelessWidget {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            color: state is OpportunityFilterEditing
-                                ? AppColors.sky
-                                : AppColors.ultraLightGrey,
+                            color: AppColors.ultraLightGrey,
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: IconButton(
@@ -42,15 +40,12 @@ class Filters extends StatelessWidget {
                                     .add(OpportunityFilterTap()),
                             icon: Icon(
                               PhosphorIcons.regular.slidersHorizontal,
-                              color: state is OpportunityFilterEditing
-                                  ? AppColors.white
-                                  : AppColors.black,
+                              color: AppColors.black,
                             ),
                           ),
                         ),
                         Visibility(
-                          visible: state is! OpportunityFilterEditing &&
-                              state.filter.filters.isNotEmpty,
+                          visible: state.filter.filters.isNotEmpty,
                           child: Positioned(
                             right: 0,
                             top: 0,

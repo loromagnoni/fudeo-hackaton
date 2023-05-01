@@ -15,6 +15,7 @@ enum Filter {
 
 class OpportunityFilter extends Equatable {
   const OpportunityFilter({this.title, this.filters = const []});
+
   final String? title;
   final List<Filter> filters;
 
@@ -45,11 +46,14 @@ abstract class JobOfferListState extends Equatable {
     this.freelanceList,
     this.selectedType,
     this.filter,
+    this.filterToApply,
   );
+
   final List<JobOffer> jobOfferList;
   final List<Freelance> freelanceList;
   final OpportunityType selectedType;
   final OpportunityFilter filter;
+  final OpportunityFilter filterToApply;
 
   List<Opportunity> get filteredOpportunities {
     final opportunities = selectedType == OpportunityType.jobOffer
@@ -72,7 +76,7 @@ abstract class JobOfferListState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [jobOfferList, freelanceList, selectedType, filter];
+      [jobOfferList, freelanceList, selectedType, filter, filterToApply];
 }
 
 class JobOfferListInitial extends JobOfferListState {
@@ -81,6 +85,7 @@ class JobOfferListInitial extends JobOfferListState {
     super.freelanceList,
     super.selectedType,
     super.filter,
+    super.filterToApply,
   );
 }
 
@@ -90,21 +95,6 @@ class JobOfferListFilled extends JobOfferListState {
     super.freelanceList,
     super.selectedType,
     super.filter,
+    super.filterToApply,
   );
-}
-
-class OpportunityFilterEditing extends JobOfferListState {
-  const OpportunityFilterEditing(
-    super.jobOfferList,
-    super.freelanceList,
-    super.selectedType,
-    super.searchText, {
-    required this.filterToApply,
-  });
-
-  final OpportunityFilter filterToApply;
-
-  @override
-  List<Object> get props =>
-      [jobOfferList, freelanceList, selectedType, filter, filterToApply];
 }
