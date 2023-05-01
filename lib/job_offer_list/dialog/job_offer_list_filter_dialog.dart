@@ -12,14 +12,6 @@ class JobOfferListFilterDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<JobOfferListBloc, JobOfferListState>(
       builder: (context, state) {
-        if (state is! OpportunityFilterEditing) {
-          return const ColoredBox(
-            color: AppColors.accentLight,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
         return ColoredBox(
           color: AppColors.accentLight,
           child: Padding(
@@ -101,7 +93,6 @@ class JobOfferListFilterDialog extends StatelessWidget {
       constraints: BoxConstraints(
         maxHeight: size.height * 0.9,
       ),
-      isDismissible: false,
       context: context,
       builder: (context) =>
           BlocProvider.value(value: bloc, child: JobOfferListFilterDialog()),

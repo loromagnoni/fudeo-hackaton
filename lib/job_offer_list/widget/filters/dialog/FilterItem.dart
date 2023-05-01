@@ -26,10 +26,7 @@ class FilterItem extends StatelessWidget {
                 width: 24,
                 height: 24,
                 child: Checkbox(
-                  value: (state as OpportunityFilterEditing)
-                      .filterToApply
-                      .filters
-                      .contains(_filter),
+                  value: state.filterToApply.filters.contains(_filter),
                   onChanged: (_) => BlocProvider.of<JobOfferListBloc>(context)
                       .add(FilterTap(_filter)),
                 ),
