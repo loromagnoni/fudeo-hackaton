@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/widget.dart';
+import 'package:fudeo_hackaton/opportunity_list/widget/widget.dart';
 import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -100,7 +100,6 @@ class OpportunityCard extends StatelessWidget {
     );
   }
 }
-
 
 class OpportunityShimmerCard extends StatelessWidget {
   const OpportunityShimmerCard({

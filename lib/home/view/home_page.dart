@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fudeo_hackaton/favourites/favourites.dart';
 import 'package:fudeo_hackaton/home/bloc/home_bloc.dart';
-import 'package:fudeo_hackaton/job_detail/job_detail.dart';
-import 'package:fudeo_hackaton/job_offer_list/job_offer_list.dart';
+import 'package:fudeo_hackaton/opportunity_detail/opportunity_detail.dart';
+import 'package:fudeo_hackaton/opportunity_list/view/opportunity_list_page.dart';
 import 'package:fudeo_hackaton/theme/theme.dart';
 import 'package:fudeo_hackaton/widget/opportunity_card.dart';
 import 'package:job_offer_repository/job_offer_repository.dart';
@@ -129,7 +129,8 @@ class HomeView extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute<void>(
-                                builder: (context) => const JobOfferListPage(),
+                                builder: (context) =>
+                                    const OpportunityListPage(),
                               ),
                             );
                           },
