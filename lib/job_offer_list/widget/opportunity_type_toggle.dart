@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
 import 'package:fudeo_hackaton/job_offer_list/widget/animated_toggle.dart';
@@ -23,28 +21,13 @@ class OpportunityTypeToggle extends StatelessWidget {
           bloc: context.read<JobOfferListBloc>(),
           builder: (context, state) {
             return AnimatedToggle(
-              values: ['Assunzioni', 'Freelance'],
+              values: const ['Assunzioni', 'Freelance'],
               backgroundColor: AppColors.white,
               textColor: AppColors.black,
               buttonColor: AppColors.grey,
               onToggleCallback: (_) =>
                   BlocProvider.of<JobOfferListBloc>(context)
                       .add(OpportunityToggleTap()),
-            );
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ToggleItem(
-                  label: 'Assunzioni',
-                  selectedType: state.selectedType,
-                  activeWhen: OpportunityType.jobOffer,
-                ),
-                ToggleItem(
-                  label: 'Freelance',
-                  selectedType: state.selectedType,
-                  activeWhen: OpportunityType.freelanceProject,
-                )
-              ],
             );
           },
         ),

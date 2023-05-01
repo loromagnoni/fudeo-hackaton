@@ -10,19 +10,19 @@ class OpportunityShimmerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: AppShadows.homeOpportunityCardShadows,
-          color: AppColors.homeOpportunityCardBackground,
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                    child: Column(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: AppShadows.homeOpportunityCardShadows,
+        color: AppColors.homeOpportunityCardBackground,
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -43,16 +43,18 @@ class OpportunityShimmerCard extends StatelessWidget {
                       ],
                     )
                   ],
-                )),
-                const SizedBox(width: 8),
-                Container(
-                  height: 32,
-                  width: 32,
-                  color: Colors.grey[300],
                 ),
-              ],
-            ),
-          ],
-        ));
+              ),
+              const SizedBox(width: 8),
+              Container(
+                height: 32,
+                width: 32,
+                color: Colors.grey[300],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }

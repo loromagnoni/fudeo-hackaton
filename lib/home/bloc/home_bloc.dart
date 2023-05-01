@@ -36,28 +36,38 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final OpenJobOfferCallback _openJobOfferDetailPage;
 
   void _handleJobOffersChanged(
-      HomeJobOffersChanged event, Emitter<HomeState> emit) {
+    HomeJobOffersChanged event,
+    Emitter<HomeState> emit,
+  ) {
     if (state is HomeFreelanceProjectsLoaded) {
-      emit((state as HomeFreelanceProjectsLoaded)
-          .loadJobOffers(event.jobOffers));
+      emit(
+        (state as HomeFreelanceProjectsLoaded).loadJobOffers(event.jobOffers),
+      );
     } else if (state is HomeInitial) {
       emit((state as HomeInitial).loadJobOffers(event.jobOffers));
     }
   }
 
   void _handleFreelanceProjectsChanged(
-      HomeFreelanceProjectsChanged event, Emitter<HomeState> emit) {
+    HomeFreelanceProjectsChanged event,
+    Emitter<HomeState> emit,
+  ) {
     if (state is HomeJobOffersLoaded) {
-      emit((state as HomeJobOffersLoaded)
-          .loadFreelanceProjects(event.freelanceProjects));
+      emit(
+        (state as HomeJobOffersLoaded)
+            .loadFreelanceProjects(event.freelanceProjects),
+      );
     } else if (state is HomeInitial) {
-      emit((state as HomeInitial)
-          .loadFreelanceProjects(event.freelanceProjects));
+      emit(
+        (state as HomeInitial).loadFreelanceProjects(event.freelanceProjects),
+      );
     }
   }
 
   void _handleOpportunityTap(
-      HomeOpportunityTap event, Emitter<HomeState> emit) {
+    HomeOpportunityTap event,
+    Emitter<HomeState> emit,
+  ) {
     if (state is HomeSuccess) {
       final state = this.state as HomeSuccess;
       final id = event.opportunity.id;

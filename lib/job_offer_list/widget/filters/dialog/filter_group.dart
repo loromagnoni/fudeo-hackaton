@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:fudeo_hackaton/job_offer_list/bloc/job_offer_list_bloc.dart';
-import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/FilterItem.dart';
+import 'package:fudeo_hackaton/job_offer_list/widget/filters/dialog/filter_item.dart';
 import 'package:fudeo_hackaton/theme/colors.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class FilterGroup extends StatelessWidget {
   const FilterGroup({

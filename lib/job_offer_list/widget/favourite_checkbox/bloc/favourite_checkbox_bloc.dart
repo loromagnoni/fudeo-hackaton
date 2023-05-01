@@ -51,7 +51,9 @@ class FavouriteCheckboxBloc
   }
 
   void _handleFavouriteCheckboxChanged(
-      FavouriteCheckboxChanged event, Emitter<FavouriteCheckboxState> emit) {
+    FavouriteCheckboxChanged event,
+    Emitter<FavouriteCheckboxState> emit,
+  ) {
     emit(
       FavouriteCheckboxState(
         checked: event.checked,

@@ -41,7 +41,6 @@ class ProjectDetailPage extends StatelessWidget {
 
 class _HeaderSection extends StatelessWidget {
   const _HeaderSection({
-    super.key,
     required this.project,
   });
 
@@ -95,7 +94,6 @@ class _HeaderSection extends StatelessWidget {
 
 class _DescriptionSection extends StatelessWidget {
   const _DescriptionSection({
-    super.key,
     required this.project,
   });
 

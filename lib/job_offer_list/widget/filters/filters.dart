@@ -19,17 +19,14 @@ class Filters extends StatelessWidget {
           Row(
             children: [
               Expanded(child: SearchBar()),
-              SizedBox(
-                width: 16,
-              ),
+              const SizedBox(width: 16),
               BlocBuilder<JobOfferListBloc, JobOfferListState>(
                 builder: (context, state) {
-                  final bloc = BlocProvider.of<JobOfferListBloc>(context);
                   return Visibility(
                     visible: state.selectedType == OpportunityType.jobOffer,
                     child: Stack(
                       children: [
-                        Container(
+                        DecoratedBox(
                           decoration: BoxDecoration(
                             color: AppColors.ultraLightGrey,
                             borderRadius: BorderRadius.circular(16),
@@ -67,7 +64,7 @@ class Filters extends StatelessWidget {
               )
             ],
           ),
-          ActiveFilters(),
+          const ActiveFilters(),
         ],
       ),
     );

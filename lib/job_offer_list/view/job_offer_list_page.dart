@@ -104,7 +104,9 @@ class JobListView extends StatelessWidget {
                 state.filteredOpportunities.map(
                   (o) => Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 16.0, horizontal: 16),
+                      vertical: 16,
+                      horizontal: 16,
+                    ),
                     child: OpportunityCard(
                       opportunity: o,
                       onTap: () => bloc.add(OpportunityTap(o)),

@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:fudeo_hackaton/theme/fonts.dart';
 
 class AnimatedToggle extends StatefulWidget {
-  final List<String> values;
-  final ValueChanged onToggleCallback;
-  final Color backgroundColor;
-  final Color buttonColor;
-  final Color textColor;
-
-  AnimatedToggle({
+  const AnimatedToggle({
+    super.key,
     required this.values,
     required this.onToggleCallback,
     required this.backgroundColor,
     required this.buttonColor,
     required this.textColor,
   });
+  final List<String> values;
+  final ValueChanged onToggleCallback;
+  final Color backgroundColor;
+  final Color buttonColor;
+  final Color textColor;
+
   @override
   _AnimatedToggleState createState() => _AnimatedToggleState();
 }
@@ -51,7 +52,7 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
               children: List.generate(
                 widget.values.length,
                 (index) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  padding: const EdgeInsets.symmetric(horizontal: 32),
                   child: Text(
                     widget.values[index],
                     style: AppFonts.jobListToggle,
@@ -75,11 +76,11 @@ class _AnimatedToggleState extends State<AnimatedToggle> {
                 borderRadius: BorderRadius.circular(width * 0.1),
               ),
             ),
+            alignment: Alignment.center,
             child: Text(
               initialPosition ? widget.values[0] : widget.values[1],
               style: AppFonts.jobListToggleActive,
             ),
-            alignment: Alignment.center,
           ),
         ),
       ],

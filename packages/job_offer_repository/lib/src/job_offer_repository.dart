@@ -251,9 +251,10 @@ extension on NotionDatabaseQueryResponse<NotionJobOfferPage> {
                     )
                     .join(),
             applyUrl: e.properties.url.url ??
-                ((Uri.tryParse(e.properties.applicationProcess.richText.first
-                                .text.content)
-                            ?.isAbsolute ??
+                ((Uri.tryParse(
+                          e.properties.applicationProcess.richText.first.text
+                              .content,
+                        )?.isAbsolute ??
                         false)
                     ? e.properties.applicationProcess.richText.first.text
                         .content
@@ -293,9 +294,10 @@ extension on NotionDatabaseQueryResponse<NotionFreelanceProjectPage> {
                   ).toHtml(),
                 )
                 .join(),
-            applyUrl: (Uri.tryParse(e.properties.applicationProcess.richText
-                            .first.text.content)
-                        ?.isAbsolute ??
+            applyUrl: (Uri.tryParse(
+                      e.properties.applicationProcess.richText.first.text
+                          .content,
+                    )?.isAbsolute ??
                     false)
                 ? e.properties.applicationProcess.richText.first.text.content
                 : null,

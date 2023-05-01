@@ -66,6 +66,14 @@ class HomeSuccess extends HomeState {
 }
 
 class Opportunity extends Equatable {
+  const Opportunity({
+    required this.id,
+    required this.title,
+    required this.workWithOrFor,
+    required this.features,
+    required this.type,
+    required this.publishDate,
+  });
   factory Opportunity.fromJobOffer(JobOffer jobOffer) {
     return Opportunity(
       id: jobOffer.id,
@@ -87,21 +95,12 @@ class Opportunity extends Equatable {
       workWithOrFor: freelance.workWith,
       features: [
         freelance.compensation,
-        freelance.nda ? 'NDA' : 'No NDA',
+        if (freelance.nda) 'NDA' else 'No NDA',
       ],
       type: OpportunityType.freelanceProject,
       publishDate: freelance.publishDate,
     );
   }
-
-  const Opportunity({
-    required this.id,
-    required this.title,
-    required this.workWithOrFor,
-    required this.features,
-    required this.type,
-    required this.publishDate,
-  });
 
   final String id;
   final String title;

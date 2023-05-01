@@ -49,7 +49,10 @@ Future<void> bootstrap({required AppBuilder builder}) async {
   await runZonedGuarded(
     () async => runApp(
       await builder(
-          jobOfferRepository, socialShareRepository, favouritesRepository),
+        jobOfferRepository,
+        socialShareRepository,
+        favouritesRepository,
+      ),
     ),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );

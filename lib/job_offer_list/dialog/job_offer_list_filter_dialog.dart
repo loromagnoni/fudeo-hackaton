@@ -8,6 +8,8 @@ import 'package:fudeo_hackaton/theme/fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class JobOfferListFilterDialog extends StatelessWidget {
+  const JobOfferListFilterDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<JobOfferListBloc, JobOfferListState>(
@@ -94,8 +96,10 @@ class JobOfferListFilterDialog extends StatelessWidget {
         maxHeight: size.height * 0.9,
       ),
       context: context,
-      builder: (context) =>
-          BlocProvider.value(value: bloc, child: JobOfferListFilterDialog()),
+      builder: (context) => BlocProvider.value(
+        value: bloc,
+        child: const JobOfferListFilterDialog(),
+      ),
     );
   }
 
