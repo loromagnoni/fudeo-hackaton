@@ -52,6 +52,10 @@ class OpportunityListBloc
     _jobOfferListSubscription = _jobOfferRepository.jobOfferList.listen((list) {
       add(JobOfferListChange(list));
     });
+    _freelanceListSubscription =
+        _jobOfferRepository.freelanceList.listen((list) {
+      add(FreelanceListChange(list));
+    });
     _jobOfferRepository
       ..loadJobOffers()
       ..loadFreelanceProjects();
@@ -59,6 +63,7 @@ class OpportunityListBloc
 
   final JobOfferRepository _jobOfferRepository;
   late StreamSubscription<List<JobOffer>> _jobOfferListSubscription;
+  late StreamSubscription<List<Freelance>> _freelanceListSubscription;
   final OpenJobOfferCallback _openJobOfferDetailPageCallback;
   final OpenFreelanceCallback _openFreelanceDetailPageCallback;
   final OpenFilterDialogCallback _openFilterDialogCallback;
@@ -128,6 +133,7 @@ class OpportunityListBloc
   @override
   Future<void> close() {
     _jobOfferListSubscription.cancel();
+    _freelanceListSubscription.cancel();
     return super.close();
   }
 
